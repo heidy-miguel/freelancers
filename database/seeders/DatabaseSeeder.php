@@ -24,6 +24,6 @@ class DatabaseSeeder extends Seeder
             $courseId = rand(1, 24);
             $instructor->courses()->attach($courseId);            
         });
-        \App\Models\Training::factory(100)->create();
+        \App\Models\Training::factory(35)->create();
     }
 }

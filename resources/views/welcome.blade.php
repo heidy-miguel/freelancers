@@ -11,8 +11,8 @@
       <div class="row">
         <div class="col-xl-6">
           <h1>Encontre um formador profissional de qualquer área</h1>
-          <h2>Trabalhe com a maior rede de profissionais independente e faça as coisas acontecerm, 
-          de rápidas a grandes transformações.</h2>
+          <h2>Trabalhe com a maior rede de profissionais independente e faça as coisas acontecerem de maneira
+          rápida e eficaz.</h2>
           <a href="#about" class="btn-get-started scrollto">INSCREVE-SE</a>
         </div>
       </div>
