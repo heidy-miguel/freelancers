@@ -10,23 +10,23 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{ secure_asset('presento/img/favicon.png') }}" rel="icon">
-  <link href="{{ secure_asset('presento/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+  <link href="{{ asset('presento/img/favicon.png') }}" rel="icon">
+  <link href="{{ asset('presento/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="{{ secure_asset('presento/vendor/aos/aos.css') }}" rel="stylesheet">
-  <link href="{{ secure_asset('presento/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ secure_asset('presento/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-  <link href="{{ secure_asset('presento/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-  <link href="{{ secure_asset('presento/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-  <link href="{{ secure_asset('presento/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
-  <link href="{{ secure_asset('presento/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('presento/vendor/aos/aos.css') }}" rel="stylesheet">
+  <link href="{{ asset('presento/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('presento/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ asset('presento/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('presento/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('presento/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+  <link href="{{ asset('presento/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="{{ secure_asset('presento/css/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('presento/css/style.css') }}" rel="stylesheet">
   @stack('page_css')
 </head>
 
@@ -35,19 +35,19 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center">
-      <h1 class="logo me-auto"><a href="#">Freelancers<span>.</span></a></h1>
+      <h1 class="logo me-auto"><a href="{{ route('welcome') }}">Freelancers<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>-->
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
+          <li><a class="nav-link scrollto" href="{{ route('instructor.explore') }}">Explorar</a></li>
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
           <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
           <li><a class="nav-link scrollto" href="#team">Team</a></li>
           <li><a href="blog.html">Blog</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+<!--           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
               <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
@@ -63,8 +63,8 @@
               <li><a href="#">Drop Down 3</a></li>
               <li><a href="#">Drop Down 4</a></li>
             </ul>
-          </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          </li> -->
+          <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -150,15 +150,15 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="{{ secure_asset('presento/vendor/aos/aos.js') }}"></script>
-  <script src="{{ secure_asset('presento/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ secure_asset('presento/vendor/glightbox/js/glightbox.min.js') }}"></script>
-  <script src="{{ secure_asset('presento/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-  <script src="{{ secure_asset('presento/vendor/purecounter/purecounter.js') }}"></script>
-  <script src="{{ secure_asset('presento/vendor/swiper/swiper-bundle.min.js') }}"></script>
+  <script src="{{ asset('presento/vendor/aos/aos.js') }}"></script>
+  <script src="{{ asset('presento/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('presento/vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ asset('presento/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+  <script src="{{ asset('presento/vendor/purecounter/purecounter.js') }}"></script>
+  <script src="{{ asset('presento/vendor/swiper/swiper-bundle.min.js') }}"></script>
 
   <!-- Template Main JS File -->
-  <script src="{{ secure_asset('presento/js/main.js') }}"></script>
+  <script src="{{ asset('presento/js/main.js') }}"></script>
   @stack('page_js')
 </body>
 

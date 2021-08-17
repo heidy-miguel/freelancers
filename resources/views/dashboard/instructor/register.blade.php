@@ -35,18 +35,15 @@
               </p>
             </div> -->
             <div class="portfolio-details">
-                <form id="registrationForm" action="{{ route('instructor.create') }}">
+                <form id="registrationForm" action="{{ route('instructor.create') }}" method="post">
+                  @csrf
                     <div class="form-group">
                         <label for="first_name" class="form-label">Nome</label>
                         <input type="text" class="form-control" name="first_name" required>
                     </div>
                     <div class="form-group">
                         <label for="last_name" class="form-label">Apelido</label>
-                        <input type="text" class="form-control" name="first_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="date_birth" class="form-label">Data de Nascimento</label>
-                        <input type="text" class="form-control" name="date_birth" >
+                        <input type="text" class="form-control" name="last_name" required>
                     </div>
                     <div class="form-group">
                         <label for="email" class="form-label">E-mail</label>
@@ -58,11 +55,11 @@
                     </div>
                     <div class="form-group mb-0">
                       <div class="custom-control custom-checkbox">
-                        <input type="checkbox" name="terms" class="custom-control-input">
-                        <label class="custom-control-label" for="terms">Concordo com os <a href="#">termos e condições de serviços</a>.</label>
+                        <input type="checkbox" name="terms" class="custom-control-input" required>
+                        <label class="" for="terms">Concordo com os <a href="#">termos e condições de serviços</a>.</label>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Registar</button>
+                    <button type="submit" class="btn btn-primary">Registar-se</button>
                 </form>
             </div>
           </div>

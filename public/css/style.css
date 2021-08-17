@@ -1,0 +1,13 @@
+/*.bs-stepper.vertical .bs-stepper-header {
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    margin: 0;
+    width: 20%;
+}
+
+.bs-stepper-content {
+    padding: 0 20px 20px;
+    width: 80%;
+}*/

@@ -63,12 +63,17 @@ Route::prefix('instructor')->name('instructor.')->group(function(){
             Route::view('/register','dashboard.instructor.register')->name('register');
             Route::post('/create',[InstructorController::class,'create'])->name('create');
             Route::post('/check',[InstructorController::class,'check'])->name('check');
+            Route::get('/explore',[InstructorController::class,'explore'])->name('explore');
        });
 
        Route::middleware(['auth:instructor','PreventBackHistory'])->group(function(){
             Route::view('/home','dashboard.instructor.home')->name('home');
             Route::post('logout',[InstructorController::class,'logout'])->name('logout');
-            Route::post('/update',[InstructorController::class,'update'])->name('update'); 
+            Route::post('/update',[InstructorController::class,'update'])->name('update');
+            Route::get('/edit',[InstructorController::class,'edit'])->name('edit');
+            Route::post('/add-employment',[InstructorController::class,'addEmployment'])->name('add_employment');
+            Route::post('/add-education',[InstructorController::class,'addEducation'])->name('add_education');
+            Route::post('/add-language',[InstructorController::class,'addLanguage'])->name('add_language');
        });
 
 });

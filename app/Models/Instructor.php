@@ -24,7 +24,7 @@ class Instructor extends Authenticatable
         'city', 
         'phone', 
         'rate', 
-        'exoerience', 
+        'experience', 
         'email',
         'picture',
     ];
@@ -60,7 +60,25 @@ class Instructor extends Authenticatable
         return $this->belongsToMany('App\Models\Course', 'course_instructor');
     }
 
+    public function skills(){
+        return $this->belongsToMany('App\Models\Skill', 'instructor_skill');
+    }
+
     public function trainings(){
         return $this->hasMany('App\Models\Training');
     }
+
+    public function educations(){
+        return $this->hasMany('App\Models\Education');
+    }
+
+    public function employments(){
+        return $this->hasMany('App\Models\Employment');
+    }
+
+    public function languages(){
+        return $this->belongsToMany('App\Models\Language', 'instructor_language');
+    }
+
+
 }

@@ -5,9 +5,12 @@
   <link rel="stylesheet" href="{{ asset('vendor/plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/plugins/toastr/toastr.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/plugins/dropzone/min/dropzone.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendor/plugins/bs-stepper/css/bs-stepper.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endpush
 @section('content')
+@include('layouts.form_model')
+@include('modal.language')
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3">
@@ -17,7 +20,7 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="{{ asset('img/instructors/')}}/{{ Auth::guard('instructor')->user()->picture }}"
+                       src="{{ asset('img/instructors/default_picture.jpg') }}"
                        alt="User profile picture">
                 </div>
 
@@ -320,7 +323,28 @@
 <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('vendor/plugins/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('vendor/plugins/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('vendor/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
 <script>
+
+    $(window).on('load', function() {
+        $('#modal-xl').modal('show');
+    });
+
+$(document).ready(function () {
+      var stepper= new Stepper(document.querySelector('.bs-stepper'), {
+        linear: false,
+        animation: true
+      });
+
+
+        $('.nextstep').click(function(){
+          stepper.next();
+        })
+
+        $('.previousstep').click(function(){
+          stepper.previous();
+        })
+
     // make table row clickable
     $(".clickable-row").click(function() {
         window.location = $(this).data("href");
@@ -335,5 +359,21 @@
       toastr.success("{{ Session::get('message') }}");
     @endif
   });
+
+  var city_url = "{{ asset('city.json') }}";
+  $.getJSON(city_url, function(data) {
+      $.each(data, function(index, val) {
+        $('#city').append('<option>' + val.name + '</option>'); 
+      });
+  });
+
+  var languages_url = "{{ asset('data/languages.json') }}";
+  $.getJSON(languages_url, function(data) {
+      $.each(data, function(index, val) {
+        $('#language').append('<option>' + val.name + '</option>'); 
+      });
+  });
+
+});
 </script>
 @endpush

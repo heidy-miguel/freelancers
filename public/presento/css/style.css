@@ -30,6 +30,7 @@ h1, h2, h3, h4, h5, h6 {
 label {
   display: inline-block;
   margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 
@@ -43,6 +44,12 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+}
+
+.custom-control-input {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  vertical-align: middle;
 }
 
 .form-control {
@@ -442,6 +449,13 @@ select.form-control:focus::-ms-value {
   display: block;
 }
 
+.rounded-circle {
+  border: 2px solid #e03a3c;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+}
+
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
@@ -497,6 +511,16 @@ select.form-control:focus::-ms-value {
   border-color: #fff;
 }
 
+.card .card-body .badge-secondary {
+  color: white;
+  background-color: #3a3b3c;
+}
+
+.card .card-body .card-text {
+  display: block;
+  font-weight: .875em;
+}
+
 @media (max-width: 768px) {
   #hero {
     text-align: center;
@@ -515,6 +539,78 @@ select.form-control:focus::-ms-value {
   #hero {
     height: 120vh;
   }
+}
+
+
+
+/*--------------------------------------------------------------
+# Explore
+--------------------------------------------------------------*/
+  #explore .section-title{
+    width: 100%;
+    position: relative;
+    padding-top: 82px;
+    background-color: #1b1b1b;
+    color: white;
+  }
+
+  #explore .explore-top {
+    padding: 10px 0 10px 0;
+    background: #1b1b1b;
+  }
+
+  #explore .jumbotron {
+    text-align: left;
+  }
+
+  #explore .jumbotron .about-btn {
+  padding: 8px 30px 9px 30px;
+  color: #fff;
+  border-radius: 50px;
+  transition: 0.3s;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid #e03a3c;
+}
+
+#explore .jumbotron .about-btn i {
+  font-size: 16px;
+  padding-left: 5px;
+}
+
+#explore .jumbotron .about-btn:hover {
+  background: #e35052;
+  background: #e03a3c;
+}
+
+#explore .card h5 {
+  text-align: center;
+  font-weight: bold;
+}
+
+#explore .card h6 {
+  text-align: center;
+}
+
+#explore .card .rate {
+  text-align: center;
+  font-weight: bold;
+  font-size: .875em; 
+}
+
+.card .card-body .rate {
+  padding: 8px 30px 9px 30px;
+  color: #1b1b1b;
+  border-radius: 50px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid #e03a3c;
 }
 
 /*--------------------------------------------------------------
@@ -2279,4 +2375,19 @@ section {
   background: #e03a3c;
   color: #fff;
   text-decoration: none;
+}
+
+
+.bs-stepper.vertical .bs-stepper-header {
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    margin: 0;
+    width: 50%;
+}
+
+.bs-stepper-content {
+    padding: 0 20px 20px;
+    width: 50%;
 }
