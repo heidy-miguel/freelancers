@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         View::share('courses', Course::all());
-        View::share('skills', Skill::all());
-        View::share('languages', Language::all());
+        //View::share('skills', Skill::all());
+        //View::share('languages', Language::all());
     }
 }
