@@ -8,20 +8,20 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="education_form" action="<?= route('instructor.add_education') ?>" method="post" role="form">
+        <form id="education_form" action="<?= route('instructor.add_education') ?>" method="post"  enctype="multipart/form-data">
           @csrf
           <input type="hidden" name="instructor_id" value="{{ Auth::guard('instructor')->user()->id }}">
           <div class="form-group"> 
             <label for="company">Curso</label>
-            <input type="text" class="form-control" name="study_area" placeholder="Universidade, escola, centro de formação">
+            <input type="text" class="form-control" name="study_area" placeholder="Engenharia Informática, Económia, Finanças Públicas" required>
           </div>
           <div class="form-group"> 
-            <label for="company">Instituição</label>
-            <input type="text" class="form-control" name="school" placeholder="universidade, escola, centro de formação">
+            <label for="company">Instituição de ensino</label>
+            <input type="text" class="form-control" name="school" placeholder="universidade, escola, centro de formação" required>
           </div>
           <div class="form-group"> 
             <label for="country">Grau</label>
-            <select class="form-control" name="degree">
+            <select class="form-control" name="degree" required>
               <option>Curso</option>
               <option>Ensio Médio</option>
               <option>Licenciatura</option>
@@ -32,11 +32,15 @@
           <div class="form-row">
             <div class="form-group col-md-6"> 
               <label for="start_date">Início</label>
-              <input type="date" class="form-control" name="start_date">
+              <input type="date" class="form-control" name="start_date" required>
             </div>
             <div class="form-group col-md-6"> 
               <label for="end_date">Fim</label>
-              <input type="date" class="form-control" name="end_date">
+              <input type="date" class="form-control" name="end_date" required>
+            </div>
+            <div class="form-group">
+              <label for="file">Certificado</label>
+              <input type="file" name="file" id="file" except="pdf" class="form-control" style="width: 100%">
             </div>
           </div>
           <div class="modal-footer justify-content-between">
@@ -44,6 +48,7 @@
             <input type="submit" id="submit" class="btn btn-primary" value="Save">
           </div>
         </form>
+
       </div>
     </div>
     <!-- /.modal-content -->

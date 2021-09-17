@@ -13,7 +13,7 @@
           <h1>Encontre um formador profissional de qualquer área</h1>
           <h2>Trabalhe com a maior rede de profissionais independente e faça as coisas acontecerem de maneira
           rápida e eficaz.</h2>
-          <a href="#about" class="btn-get-started scrollto">INSCREVE-SE</a>
+          <a href=" {{ route('instructor.explore') }}" class="btn-get-started scrollto">Explorar Formadores</a>
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
                 ou negócios a novos patamares. Encontre oportunidades para todas as fases de sua carreira
                 freelance. Controle quando, onde e como você trabalha e explore maneiras diferentes de ganhar mais.
               </p>
-              <a href="#" class="about-btn"><span>Oportunidades</span> <i class="bx bx-chevron-right"></i></a>
+              <a href="{{ route('job.index') }}" class="about-btn"><span>Oportunidades</span> <i class="bx bx-chevron-right"></i></a>
             </div>
           </div>
           <div class="col-xl-7 d-flex align-items-stretch">

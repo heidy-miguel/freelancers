@@ -6,16 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Trainee;
+use App\Models\Job;
 use Illuminate\Support\Facades\Auth;
 
 class TraineeController extends Controller
 {
+
     function create(Request $request){
           //Validate inputs
           $request->validate([
              'name'=>'required',
              'email'=>'required|email|unique:trainees,email',
-             'hospital'=>'required',
              'password'=>'required|min:5|max:30',
              'cpassword'=>'required|min:5|max:30|same:password'
           ]);
@@ -23,48 +24,65 @@ class TraineeController extends Controller
           $treinee = new Trainee(); 
           $treinee->name = $request->name;
           $treinee->email = $request->email;
-          $treinee->hospital = $request->hospital;
           $treinee->password = \Hash::make($request->password);
           $save = $treinee->save();
 
           if( $save ){
-              return redirect()->back()->with('success','You are now registered successfully as Trainee');
+              return redirect()->back()->with('success','P teu registo foi afectuado com sucesso');
           }else{
               return redirect()->back()->with('fail','Something went Wrong, failed to register');
           }
     }
 
-    function show($id){
+    public function show($id){
       $treinee = Trainee::find($id);
       return view('trainee.show', ['trainee', $trainee]);
     }
 
 
-        public function update(Request $request)
-    {
+    public function update(Request $request){
         //
-        $request->validate([
-            'image' => 'image|mimes:jpeg,jpg,png|max:2048',
-            'name' => 'required',
-            'email' => 'required'
-        ]);
+        // $request->validate([
+        //     'image' => 'image|mimes:jpeg,jpg,png|max:1024',
+        //     'name' => 'required',
+        //     'email' => 'required'
+        // ]);
 
-        $trainee = Trainee::find($request->input('id'));
+        $trainee = Trainee::find($request->input('trainee_id'));
         $trainee->name = $request->input('name');
         $trainee->email = $request->input('email');
         $trainee->address = $request->input('address');
         $trainee->city = $request->input('city');
         $trainee->phone = $request->input('phone');
         $trainee->description = $request->input('description');
-        if($request->hasFile('image')){
 
-        $image_name = time() . '_' . $trainee->name . '.' . $request->image->extension();
-        $trainee->picture = $image_name;
-        $request->image->move(public_path('img/trainees/'), $image_name);
+        $picture_name = null;
+        if($request->hasFile('picture')){  
+          $path = 'public/img/trainees/';
+          error_log('RRRRRRRRRRRRRRR');  
+          // $picture_name = ucwords($request->name) . '/' . time() . '.' . $request->picture->extension();
+          // $request->picture->storeAs($path, $picture_name);
         }
+
         $trainee->save();
         $request->session()->flash('message', 'Actualizado com sucesso!');
         return redirect()->route('trainee.home', [$trainee->id]);
+    } 
+
+    public function add_job(Request $request){
+      $job = new Job();
+      $job->title = $request->input('title');
+      $job->start_date = $request->input('start_date');
+      $job->end_date = $request->input('end_date');
+      $job->description = $request->input('description'); 
+      $job->trainee_id = $request->input('trainee_id'); 
+      $job->rate = $request->input('rate'); 
+      $job->address = $request->input('address'); 
+      $job->description = $request->input('description');
+      $job->save();
+
+      return redirect()->route('job.show', [$job->id]);
+
     }
 
     function check(Request $request){

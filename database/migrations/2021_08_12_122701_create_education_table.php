@@ -18,6 +18,7 @@ class CreateEducationTable extends Migration
             $table->string('school');
             $table->string('study_area');
             $table->string('degree');
+            $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date'); 
             $table->unsignedBigInteger('instructor_id');

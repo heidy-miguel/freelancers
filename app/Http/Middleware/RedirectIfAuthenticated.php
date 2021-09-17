@@ -25,15 +25,15 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
 
                 if($guard === 'admin'){
-                    return redirect()->route('admin.home');
+                    return redirect()->route('instructor.edit');
                 }
                 if($guard === 'instructor'){
-                    return redirect()->route('instructor.home');
+                    return redirect()->route('instructor.edit');
                 }
                 if($guard === 'trainee'){
-                    return redirect()->route('trainee.home');
+                    return redirect()->route('instructor.explore');
                 }
-                return redirect()->route('user.home');
+                return redirect()->route('instructor.edit');
                 // return redirect(RouteServiceProvider::HOME);
             }
         }

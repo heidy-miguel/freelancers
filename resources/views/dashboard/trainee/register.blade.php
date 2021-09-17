@@ -35,11 +35,6 @@
                         <input type="text" class="form-control" name="email" placeholder="Enter email address" value="{{ old('email') }}">
                         <span class="text-danger">@error('email'){{ $message }}@enderror</span>
                     </div>
-                    <div class="form-group">
-                        <label for="hospital">Hospital</label>
-                        <input type="text" class="form-control" name="hospital" placeholder="Enter hospital name" value="{{ old('hospital') }}">
-                        <span class="text-danger">@error('hospital'){{ $message }}@enderror</span>
-                    </div>
                      <div class="form-group">
                          <label for="password">Password</label>
                          <input type="password" class="form-control" name="password" placeholder="Enter password" value="{{ old('password') }}">
@@ -54,7 +49,7 @@
                          <button type="submit" class="btn btn-primary">Register</button>
                      </div>
                      <br>
-                     <a href="{{ route('trainee.login') }}">I already have an account, Login now</a>
+                     <a href="{{ route('trainee.login') }}">Eu já teho uma conta, login agora</a>
                  </form>
             </div>
         </div>

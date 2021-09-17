@@ -41,4 +41,12 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    function adminlte_desc(){
+        return $this->description;  
+    }
+
+    public function adminlte_image(){
+        return '/storage/img/instructors/' . $this->picture; 
+    }
 }

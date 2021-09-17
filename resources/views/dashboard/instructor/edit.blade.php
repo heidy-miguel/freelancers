@@ -2,275 +2,410 @@
 @push('css')
   <link rel="stylesheet" href="{{ asset('vendor/plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/plugins/toastr/toastr.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/plugins/bs-stepper/css/bs-stepper.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/plugins/tagcloud/tagcloud.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endpush
 @section('content')
-<div class="row">
-  <div class="col-md-8 mx-auto">
-<div class="bs-stepper">
-  <div class="bs-stepper-header" role="tablist">
-    <!-- your steps here -->
-    <div class="step" data-target="#education-part">
-      <button type="button" class="step-trigger" role="tab" aria-controls="education-part" id="education-part-trigger">
-        <span class="bs-stepper-circle"><i class="fas fa-graduation-cap"></i></span>
-        <span class="bs-stepper-label">Formação</span>
-      </button>
-    </div>
-    <div class="bs-stepper-line"></div>
-    <div class="step" data-target="#employment-part">
-      <button type="button" class="step-trigger" role="tab" aria-controls="employment-part" id="employment-part-trigger">
-        <span class="bs-stepper-circle"><i class="fas fa-briefcase"></i></span>
-        <span class="bs-stepper-label">Trabalho</span>
-      </button>
-    </div>
-    <div class="line"></div>
-    <div class="step" data-target="#skills-part">
-      <button type="button" class="step-trigger" role="tab" aria-controls="skills-part" id="skills-part-trigger">
-        <span class="bs-stepper-circle"><i class="fas fa-medal"></i></span>
-        <span class="bs-stepper-label">Habilidade</span>
-      </button>
-    </div>
-    <div class="line"></div>
-    <div class="step" data-target="#language-part">
-      <button type="button" class="step-trigger" role="tab" aria-controls="language-part" id="language-part-trigger">
-        <span class="bs-stepper-circle"><i class="fas fa-globe-africa"></i></span>
-        <span class="bs-stepper-label">Idioma</span>
-      </button>
-    </div>
-  </div>
-  <div class="bs-stepper-content">
-    <!-- your steps content here -->
-    <form action="{{ route('instructor.update') }}" method="post">
-      @csrf
-      <input type="hidden" name="instructor_id" value="{{ Auth::guard('instructor')->user()->id }}">
-      <div id="education-part" class="content fade" role="tabpanel" aria-labelledby="education-part-trigger">
-        <h3>Adiciona as tuas formações</h3>
-        
-        @forelse($instructor->educations as $education)
-        <button type="button" class="btn btn-outline-secondary m-2 btn-sm rounded-4">{{ $education->study_area }}</button>
-        
-        @empty
-        <small>Você ainda não adicionou formação</small>
-        @endforelse
-        
-        <br>
-        <br>
-        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#education-modal"> Adicionar mais
-        </button>
-        <br>
-        <br>
-        <button type="button" class="btn btn-primary previousstep">Anterior</button>
-        <button type="button" class="btn btn-primary nextstep pull-right">Próximo</button>
-      </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
 
-      <div id="employment-part" class="content fade" role="tabpanel" aria-labelledby="employment-part-trigger">
-        <h3>Adiciona as tuas experiências de trabalho</h3>
-        <p>Constroi a tua credibilidade mostrando os trabalhos que já tiveste.</p>
-        @foreach($instructor->employments as $job)
-        <button type="button" class="btn btn-outline-secondary m-2 btn-sm rounded-4">{{ $job->title }}</button>
-        @endforeach
-        
-        @empty($instructor->employments)
-        <small>Adiciona a tua primeira experiêcia de trabalho</small>
-        @endempty
-        <br>
-        <br>
-        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#employment-modal">Mais experiência de trabalho </button>
-        <br>
-        <br>
-        <button type="button" class="btn btn-primary previousstep">Anterior</button>
-        <button type="button" class="btn btn-primary nextstep pull-right">Próximo</button>
-      </div>
-      
-      <div id="skills-part" class="content fade" role="tabpanel" aria-labelledby="skills-part-trigger">
-        <h3>Adiciona as tuas habilidades</h3>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-search"></i></span>
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle" style="width: 150px; height: 150px;" 
+                       src="{{ asset('storage/img/instructors/' . $instructor->picture ) }}"
+                       alt="{{ $instructor->name }}">
+                </div>
+
+                <h3 class="profile-username text-center">{{ ucwords($instructor->name) }}</h3>
+
+                <p class="text-muted text-center">
+                  {{ $instructor->profession }}
+                </p>
+              </div>
+              <!-- /.card-body -->
             </div>
-            <input type="text" class="form-control">
+            <!-- /.card -->
+
+            <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Sobre mim</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <strong><i class="fas fa-book mr-1"></i> Formação</strong>
+                  <ul class="products-list product-list-in-card pl-2 pr-2">
+                    @foreach($instructor->educations as $education)
+                      <li class="item">
+                        <div class="product-info" style="margin-left: 0px;">
+                          <strong>{{ ucwords($education->study_area) }}</strong>
+                          <span class="product-description">
+                            {{ ucwords($education->degree) }} | {{ ucwords($education->school) }}
+                          </span>
+                        </div>
+                      </li>
+                    @endforeach
+                    </ul>
+                  <hr>
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Endereço</strong>
+
+                <p class="text-muted">{{ $instructor->address }}</p>
+
+                <hr>
+
+                <strong><i class="fas fa-pencil-alt mr-1"></i> Habilidades</strong>
+
+                <p class="text-muted">
+                  @foreach($instructor->skills as $skill)
+                  <span class="badge bg-dark">{{ $skill->name }}</span>
+                  @endforeach
+                </p>
+
+                <hr>
+
+                <strong><i class="far fa-file-alt mr-1"></i> Nota</strong>
+
+                <p class="text-muted">{{ $instructor->description }}</p>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#employment" data-toggle="tab">Experiência Profissional</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Dados Pessoais</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#education" data-toggle="tab">Formação</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="active tab-pane" id="activity">
+                    <!-- Post -->
+                    <div class="post">
+                      <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
+                        <span class="username">
+                          <a href="#">Jonathan Burke Jr.</a>
+                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                        </span>
+                        <span class="description">Shared publicly - 7:30 PM today</span>
+                      </div>
+                      <!-- /.user-block -->
+                      <p>
+                        @if($errors->any())
+                        <ul>
+                          @foreach($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                          @endforeach
+                        </ul>
+                        @endif
+                      </p>
+
+                      <p>
+                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                        <span class="float-right">
+                          <a href="#" class="link-black text-sm">
+                            <i class="far fa-comments mr-1"></i> Comments (5)
+                          </a>
+                        </span>
+                      </p>
+
+                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+                    </div>
+                    <!-- /.post -->
+
+                    <!-- Post -->
+                    <div class="post clearfix">
+                      <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="{{ asset('img/instructors/') }}/{{ $instructor->picture }}" alt="User Image">
+                        <span class="username">
+                          <a href="#">Sarah Ross</a>
+                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                        </span>
+                        <span class="description">Sent you a message - 3 days ago</span>
+                      </div>
+                      <!-- /.user-block -->
+                      <p>
+                        Lorem ipsum represents a long-held tradition for designers,
+                        typographers and the like. Some people hate it and argue for
+                        its demise, but others ignore the hate as they create awesome
+                        tools to help create filler text for everyone from bacon lovers
+                        to Charlie Sheen fans.
+                      </p>
+
+                      <form class="form-horizontal">
+                        <div class="input-group input-group-sm mb-0">
+                          <input class="form-control form-control-sm" placeholder="Response">
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-danger">Send</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- /.post -->
+
+                    <!-- Post -->
+                    <div class="post">
+                      <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="../../dist/img/user6-128x128.jpg" alt="User Image">
+                        <span class="username">
+                          <a href="#">Adam Jones</a>
+                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                        </span>
+                        <span class="description">Posted 5 photos - 5 days ago</span>
+                      </div>
+                      <!-- /.user-block -->
+                      <div class="row mb-3">
+                        <div class="col-sm-6">
+                          <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-6">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <img class="img-fluid mb-3" src="../../dist/img/photo2.png" alt="Photo">
+                              <img class="img-fluid" src="../../dist/img/photo3.jpg" alt="Photo">
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-6">
+                              <img class="img-fluid mb-3" src="../../dist/img/photo4.jpg" alt="Photo">
+                              <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
+                            </div>
+                            <!-- /.col -->
+                          </div>
+                          <!-- /.row -->
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <p>
+                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                        <span class="float-right">
+                          <a href="#" class="link-black text-sm">
+                            <i class="far fa-comments mr-1"></i> Comments (5)
+                          </a>
+                        </span>
+                      </p>
+
+                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+                    </div>
+                    <!-- /.post -->
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="employment">
+                    <!-- The timeline -->
+                    <div class="timeline timeline-inverse">
+                      <!-- timeline item -->
+                        @foreach($instructor->employments as $employment)
+                      <div>
+
+                        <i class="fas fa-envelope bg-danger"></i>
+                        <div class="timeline-item">
+                          <span class="time"><i class="far fa-clock"></i> {{ $employment->start_date }} - {{ $employment->end_date }}</span>
+
+                          <h3 class="timeline-header"><a href="#">{{ $employment->title }}</a>
+                          <small> | {{ $employment->company }} | </small></h3>
+
+                          <div class="timeline-body">
+                            {{ $employment->description }}
+                          </div>
+                          <div class="timeline-footer">
+                            <a href="#" class="btn btn-danger btn-sm">Read more</a>
+                          </div>
+                        </div>
+                      </div>
+                        @endforeach
+                      <!-- END timeline item -->
+
+                      <div>
+                            <a href="#" id="more-employment-btn" class="btn btn-danger btn-sm">Adicionar Mais</a>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.tab-pane -->
+
+                  <div class="tab-pane" id="settings">
+                    <form method="post" action="{{ route('instructor.update_personal_info') }}" enctype="multipart/form-data" class="form-horizontal" >
+                      @csrf
+                      @method('put')
+                      <input type="hidden" name="instructor_id" value="{{ $instructor->id}}">
+                      <div class="form-group row">
+                        <label for="first_name" class="col-sm-2 col-form-label">Nome</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="first_name" id="first_name" value="{{ ucwords($instructor->first_name) }}" maxlength="150" placeholder="Nome">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="middle_name" class="col-sm-2 col-form-label">Seg. Nome</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="middle_name" id="middle_name" value="{{ ucwords($instructor->middle_name) }}" placeholder="Segundo Nome">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="last_name" class="col-sm-2 col-form-label">Apelido</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="last_name" id="last_name" value="{{ ucwords($instructor->last_name) }}" placeholder="Apelido">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="profession" class="col-sm-2 col-form-label">Profissão</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="profession" id="profession" value="{{ ucwords($instructor->profession) }}" placeholder="Profissão">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="phone" class="col-sm-2 col-form-label">Telefone</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="phone" id="phone" value="{{ ucwords($instructor->phone) }}" placeholder="Telefone">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                          <input type="email" class="form-control" name="email" id="email" value="{{ $instructor->email }}" placeholder="Email">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="address" class="col-sm-2 col-form-label">Endereço</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="address" id="address" value="{{ $instructor->address }}" placeholder="Endereço">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="skills" class="col-sm-2 col-form-label">Habilidades</label>
+                        <div class="col-sm-10">
+                          <select class="select2bs4" name="skills[]" multiple="multiple" style="width: 100%;" id="skills">
+                            @foreach($skills as $skill)
+                              @if(in_array($skill->id, $instructor->skills->pluck('id')->toArray()))
+                                <option value="{{ $skill->id }}" selected>
+                                  {{ $skill->name }}
+                                </option>
+                              @else
+                                <option value="{{ $skill->id }}">
+                                  {{ $skill->name }}
+                                </option>
+                              @endif
+                            @endforeach
+                          </select> 
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="picture" class="col-sm-2 col-form-label">Fotografia</label>
+                        <div class="col-sm-10">
+                          <input type="file" name="picture" class="form-control" id="picture">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="description" class="col-sm-2 col-form-label">Nota</label>
+                        <div class="col-sm-10">
+                          <textarea class="form-control" name="description" id="description" value="{{ $instructor->description}}">{{ $instructor->description }}</textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" required> Concordo com os <a href="#">termos e condições</a>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <button type="submit" class="btn btn-danger">Salvar</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="tab-pane" id="education">
+                    <div class="timeline timeline-inverse">
+                      <!-- timeline item -->
+                        @foreach($instructor->educations as $education)
+                      <div>
+
+                        <i class="fas fa-envelope bg-danger"></i>
+                        <div class="timeline-item">
+                          <span class="time"><i class="far fa-clock"></i> {{ $education->start_date }} - {{ $education->end_date }}</span>
+
+                          <h3 class="timeline-header"><a href="#">{{ ucwords($education->study_area) }}</a>
+                          <small> | {{ ucwords($education->school) }} </small></h3>
+
+                          <div class="timeline-body">
+                            {{ $education->description }}
+                          </div>
+                          <div class="timeline-footer">
+                      
+                      <p>
+                        @foreach($education->certificates as $certificate )
+                        <a href="{{ asset('storage/docs/instructors/' . $certificate->name ) }}" class="link-black text-sm"><i class="fas fa-link mr-1"></i> {{ $certificate->name }}</a>
+                        @endforeach
+                      </p>
+                          </div>
+                        </div>
+                      </div>
+                        @endforeach
+                      <!-- END timeline item -->
+
+                      <div>
+                            <a href="#" id="more-education-btn" class="btn btn-danger btn-sm">Adicionar Mais</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <select class="skill-cloud" name="skills[]" multiple>
-          @foreach($skills as $skill)
-            <option value="{{ $skill->id }}">{{ $skill->name }}</option>
-          @endforeach
-        </select>
-
-        <p>Constroi a tua credibilidade mostrando os trabalhos que já tiveste.</p>
-        <button type="button" class="btn btn-primary previousstep">Anterior</button>
-        <button type="button" class="btn btn-primary nextstep pull-right">Próximo</button>
-      </div>
-      
-      <div id="language-part" class="content fade" role="tabpanel" aria-labelledby="language-part-trigger">
-        <h3>Seleciona os idiomas que falas</h3>
-
-        <select class="skill-cloud" name="languages[]" multiple>
-          @foreach($languages as $language)
-            <option value="{{ $language->id }}">{{ $language->name }}</option>
-          @endforeach
-        </select>
-        <br>
-        <br>
-        <button type="button" class="btn btn-primary previousstep">Anterior</button>
-      </div>
-
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-  </div>
-</div>
-  </div>
-</div>
+      </div><!-- /.container-fluid -->
 @include('dashboard.instructor.modal.employment')
 @include('dashboard.instructor.modal.education')
 @include('dashboard.instructor.modal.language')
 @endsection
+
 @push('js')
-<script src="{{ asset('vendor/plugins/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('vendor/plugins/select2/js/select2.full.min.js') }}"></script>
-<script src="{{ asset('vendor/plugins/toastr/toastr.min.js') }}"></script>
-<script src="{{ asset('vendor/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
-<script src="{{ asset('vendor/plugins/tagcloud/tagcloud.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/plugins/select2/js/select2.full.min.js') }}"></script>
 <script>
-$(document).ready(function () {
+  $(document).ready(function($) {
+    $('.select2').select2();
 
-  var stepper = new Stepper(document.querySelector('.bs-stepper'), {
-    linear: false,
-    animation: true
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
     });
 
+    var country_url = "{{ asset('countries.json') }}";
+    $.getJSON(country_url, function(data) {
+        $.each(data, function(index, val) {
+          $('#country').append('<option>' + val.name + '</option>'); 
+        });
+    });
 
-  $('.nextstep').click(function(){
-    stepper.next();
-  });
+    var city_url = "{{ asset('city.json') }}";
+    $.getJSON(city_url, function(data) {
+        $.each(data, function(index, val) {
+          $('#city').append('<option>' + val.name + '</option>'); 
+        });
+    });
 
-  $('.previousstep').click(function(){
-    stepper.previous();
-  });
-
-
-  var country_url = "{{ asset('countries.json') }}";
-  $.getJSON(country_url, function(data) {
-      $.each(data, function(index, val) {
-        $('#country').append('<option>' + val.name + '</option>'); 
-      });
-  });
-
-  var city_url = "{{ asset('city.json') }}";
-  $.getJSON(city_url, function(data) {
-      $.each(data, function(index, val) {
-        $('#city').append('<option>' + val.name + '</option>'); 
-      });
-  });
-
-  $.ajaxSetup({
-    headers:{ 'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content') }
-   });
-
-
-  //////////  EMPLOYMENT MODAL SETUP
-  $(function(){
-      $('#employment_form').on('submit', function(e){
+    $('#more-employment-btn').on('click', function(e){
       e.preventDefault();
-      var route = '/instructor/add-employment'
-      var formValues = $('#employment_form').serialize();
-      $.ajax({
-        url: route,
-        type: 'POST',
-        data: formValues,
-      })
-      .done(function() {
-        console.log("success");
-        $('#close').click();
-      })
-      .fail(function(jqXHR) {
-        console.log(jqXHR.status);
-        console.log(jqXHR.responseText);
-        //console.log(formValues);
-      })
-      .always(function() {
-        console.log("complete");
-      });
-      
+      $('#employment-modal').modal('show');
     });
-  });
 
-
-//////////  EDUCATION MODAL SETUP
-$(function(){
-    $('#education_form').on('submit', function(e){
-    e.preventDefault();
-    var route = '/instructor/add-education';
-    var formValues = $('#education_form').serialize();
-    $.ajax({
-      url: route,
-      type: 'POST',
-      data: formValues,
-    })
-    .done(function() {
-      console.log("success");
-      $('#close').click();
-    })
-    .fail(function(jqXHR) {
-      console.log(jqXHR.status);
-      console.log(jqXHR.responseText);
-      //console.log(formValues);
-    })
-    .always(function() {
-      console.log("complete");
+    $('#more-education-btn').on('click', function(e){
+      e.preventDefault();
+      $('#education-modal').modal('show');
     });
     
   });
-});
-
-
-//////////  LANGUAGE MODAL SETUP
-$(function(){
-    $('#laguage_form').on('submit', function(e){
-    e.preventDefault();
-    var route = '/instructor/add-language';
-    var formValues = $('#language_form').serialize();
-    $.ajax({
-      url: route,
-      type: 'POST',
-      data: formValues,
-    })
-    .done(function() {
-      console.log("success");
-      $('#close').click();
-    })
-    .fail(function(jqXHR) {
-      console.log(jqXHR.status);
-      console.log(jqXHR.responseText);
-      //console.log(formValues);
-    })
-    .always(function() {
-      console.log("complete");
-    });
-    
-  });
-});
-
-
-  $('.skill-cloud').tagcloud();
-
-  $('#education_form').on('submit', function(e){
-    setTimeout(function(){
-    location.reload();
-      }, 100);
-    });
-
-  $('#employment_form').on('submit', function(e){
-    setTimeout(function(){
-    location.reload();
-    }, 100);
-
-  });
-  
-});
-
 </script>
 @endpush

@@ -43,7 +43,7 @@ class Trainee extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function trainings(){
-        return $this->hasMany('App\Models\Training');
+    public function jobs(){
+        return $this->hasMany('App\Models\Job');
     }
 }

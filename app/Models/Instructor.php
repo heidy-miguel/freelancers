@@ -27,6 +27,7 @@ class Instructor extends Authenticatable
         'experience', 
         'email',
         'picture',
+        'description',
     ];
 
     /**
@@ -64,9 +65,9 @@ class Instructor extends Authenticatable
         return $this->belongsToMany('App\Models\Skill', 'instructor_skill');
     }
 
-    public function trainings(){
-        return $this->hasMany('App\Models\Training');
-    }
+    // public function trainings(){
+    //     return $this->hasMany('App\Models\Training');
+    // }
 
     public function educations(){
         return $this->hasMany('App\Models\Education');
@@ -76,9 +77,29 @@ class Instructor extends Authenticatable
         return $this->hasMany('App\Models\Employment');
     }
 
+    public function applications(){
+        return $this->belongsToMany('App\Models\Job', 'instructor_job');
+    }
+
+    public function jobs(){
+        return $this->hasMany('App\Models\Job');
+    }
+
     public function languages(){
         return $this->belongsToMany('App\Models\Language', 'instructor_language');
     }
+
+    function adminlte_desc(){
+        return $this->description;  
+    }
+
+    public function adminlte_image(){
+        return '/storage/img/instructors/' . $this->picture; 
+    }
+
+    
+
+
 
 
 }

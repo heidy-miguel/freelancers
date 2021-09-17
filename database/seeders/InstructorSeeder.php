@@ -20,7 +20,7 @@ class InstructorSeeder extends Seeder
                 'middle_name' => 'carlos',
                 'last_name' => 'monteiro',
                 'birth_date' => '1990-12-23',
-                'email' => 'joaocarlos@gmail.com',
+                'email' => 'admin@gmail.com',
                 'city' => 'luanda',
                 'phone' => '926456996',
                 'address' => 'martires, rua 23 zona 12',

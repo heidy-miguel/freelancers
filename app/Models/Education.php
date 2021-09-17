@@ -12,4 +12,8 @@ class Education extends Model
     public function instructor(){
         return $this->belongsTo('App\Models\Instructor');
     }
+
+    public function certificates(){
+        return $this->hasMany('App\Models\Certificate');
+    }
 }

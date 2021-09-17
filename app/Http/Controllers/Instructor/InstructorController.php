@@ -9,6 +9,7 @@ use App\Models\Instructor;
 use App\Models\Course;
 use App\Models\Employment;
 use App\Models\Education;
+use App\Models\Certificate;
 use Illuminate\Support\Facades\Auth;
 
 class InstructorController extends Controller
@@ -59,7 +60,7 @@ class InstructorController extends Controller
       if(!$saved){
         return response()->json(['code' => 0, 'message' => 'Something whent wrong!']);
       } else {
-        return response()->json(['code' => 1, 'message' => 'New added!']);
+        return redirect()->route('instructor.redit');
       }
     }
 
@@ -75,11 +76,25 @@ class InstructorController extends Controller
       $education->end_date = $request->input('end_date');
       $education->instructor_id = $instructor->id;
       $saved = $education->save();
+      
+      $certificate_name = null;
+      if($request->hasFile('file')){
+        $certificate = new Certificate();
+        $certificate->name = $education->study_area;
+        $certificate->education()->associate($education);
+
+          $path = 'public/docs/instructors/' . ucwords($instructor->first_name) . '_' . ucwords($instructor->last_name) . '/certificate/';
+          $certificate_name = $education->study_area . '.' . $request->file->extension();
+          $certificate->name = 'storage/docs/instructors' . ucwords($request->first_name) . '_' . ucwords($request->last_name) . '/' . $certificate->name . '.' . $request->file->extension();
+          $certificate->path = $path;
+          $certificate->save();
+          $request->file->storeAs($path, $certificate_name);
+      }
 
       if(!$saved){
         return response()->json(['code' => 0, 'message' => 'Something whent wrong!']);
       } else {
-        return response()->json(['code' => 1, 'message' => 'New added!']);
+        return redirect()->route('instructor.edit');
       }
     }
 
@@ -145,6 +160,58 @@ class InstructorController extends Controller
       return view('dashboard.instructor.explore')->with('instructors', $instructors);
     }
 
+    public function update_personal_info(Request $request){
+      $instructor = Instructor::findOrFail($request->input('instructor_id'));
+      if($instructor){
+        // $validate_data = $request->validate($request->all(), [
+        //   'first_name' => 'required|max:150',
+        //   'middle_name' => 'max:200',
+        //   'last_name' => 'required|max:150',
+        //   'profession' => 'required',
+        //   'phone' => 'required'
+        // ]);
+
+        // if($validate_data->fails()){
+        //   return redirect()->route('instructor.edit')
+        //     ->withErrors($validate_data)
+        //     ->withInput();
+        // }
+
+        $picture_name = null;
+        if($request->hasFile('picture')){
+          $path = 'public/img/instructors/';
+          #$picture_name = time() . '.' . $request->picture->extension();
+          $picture_name = ucwords($request->first_name) . '_' . ucwords($request->last_name) . '/' . time() . '.' . $request->picture->extension();
+          $request->picture->storeAs($path, $picture_name);
+        }
+
+        $instructor->first_name = $request->input('first_name');
+        $instructor->middle_name = $request->input('middle_name');
+        $instructor->last_name = $request->input('last_name');
+        $instructor->profession = $request->input('profession');
+        $instructor->phone = $request->input('phone');
+        $instructor->picture = $picture_name;
+        $instructor->update();
+
+        // $instructor->update($request->only(array_merge([
+        //   'first_name',
+        //   'middle_name',
+        //   'last_name',
+        //   'profession',
+        //   'phone'
+        // ]), ['picture' => $picture_name]));
+
+
+        return redirect()->route('instructor.edit');
+
+        // $instructor->first_name = $request->input('first_name');
+        // $instructor->middle_name = $request->input('middle_name');
+        // $last_name = $request->input('last_name');
+        // $profession = $request->input('profession');
+        // $phone = $request->input('phone');
+      }
+    }
+
     function check(Request $request){
         //Validate Inputs
         $request->validate([
@@ -157,8 +224,7 @@ class InstructorController extends Controller
         $creds = $request->only('email','password');
 
         if( Auth::guard('instructor')->attempt($creds) ){
-          $courses = Course::all();
-            return redirect()->route('instructor.home', ['courses' => Course::all()]);
+            return redirect()->route('instructor.edit');
         }else{
             return redirect()->route('instructor.login')->with('fail','Incorrect Credentials');
         }

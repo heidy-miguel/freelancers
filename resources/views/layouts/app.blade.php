@@ -35,19 +35,20 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center">
-      <h1 class="logo me-auto"><a href="{{ route('welcome') }}">Freelancers<span>.</span></a></h1>
+      <h1 class="logo me-auto"><a href="{{ route('welcome') }}">FREELANCERS CONSULTING<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>-->
+<!--       <a href="{{ route('welcome') }}" class="logo me-auto"><img src="{{ asset('presento/img/logo.png') }}" alt=""></a> -->
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="{{ route('instructor.explore') }}">Explorar</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li><a href="blog.html">Blog</a></li>
-<!--           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+          <!-- <li><a class="nav-link scrollto active" href="#hero">Home</a></li> -->
+          <li><a class="nav-link scrollto" href="{{ route('instructor.explore') }}">Freelancers</a></li>
+          <li><a class="nav-link scrollto" href="{{ route('job.index') }}">Oportunidades</a></li>
+          <li><a class="nav-link scrollto" href="{{ route('welcome') }}#services">Serviços</a></li>
+          <li><a class="nav-link scrollto " href="{{ route('welcome') }}#portfolio">Portfolio</a></li>
+          <li><a class="nav-link scrollto" href="{{ route('welcome') }}#team">Team</a></li>
+<!--          <li><a href="#">Blog</a></li>
+           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
               <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
@@ -64,12 +65,22 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li> -->
-          <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
+          <li><a class="nav-link scrollto" href="{{ route('welcome') }}#contact">Contacto</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-
-      <a href="{{ url('/instructor/register') }}" class="get-started-btn scrollto">INSCREVE-SE</a>
+      @auth('trainee')
+      <a href="{{ url('/instructor/register') }}" class="get-started-btn scrollto">PUBLICAR</a>
+      @endauth
+      @auth('instructor')
+      <a href="{{ url('/instructor/edit') }}" class="get-started-btn scrollto">PERFIL</a>
+      @endauth
+      @guest('instructor') 
+      <a href="{{ url('/instructor/register') }}" class="get-started-btn scrollto">REGISTAR-SE</a>
+      @endguest
+      @guest('instructor') 
+      <a href="{{ url('/instructor/login') }}" class="get-started-btn">LOGIN</a>
+      @endguest
     </div>
   </header><!-- End Header -->
 
@@ -87,13 +98,12 @@
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>Presento<span>.</span></h3>
+            <h3>Freelancers Consulting<span>.</span></h3>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              Luanda<br>
+              Angola<br><br>
+              <strong>Telefone:</strong>+244 934 612 659<br>
+              <strong>E-mail:</strong> geral@freelancersconsulting<br>
             </p>
           </div>
 

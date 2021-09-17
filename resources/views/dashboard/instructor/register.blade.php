@@ -10,9 +10,9 @@
                 <div class="container" data-aos="zoom-out" data-aos-delay="100">
                   <div class="row">
                     <div class="col-xl-6">
-                      <h1>Bettter digital experience with Presento</h1>
-                      <h2>We are team of talented designers making websites with Bootstrap</h2>
-                      <a href="#about" class="btn-get-started scrollto">Get Started</a>
+                      <h2>A melhor maneira de encontrar novas oportunidades e profissionais para a tua carreira ou projecto!</h2>
+                      <h3 style="color: white">Rápido, simples e ágil.</h3>
+                      <a href="#about" class="btn-get-started">Saber mais</a>
                     </div>
                   </div>
                 </div>
@@ -59,7 +59,7 @@
                         <label class="" for="terms">Concordo com os <a href="#">termos e condições de serviços</a>.</label>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Registar-se</button>
+                    <button type="submit" class="get-started-btn mt-3 rounded" style="float: right;">Registar-se</button>
                 </form>
             </div>
           </div>

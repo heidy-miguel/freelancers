@@ -21,14 +21,16 @@ class CreateInstructorsTable extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('email')->unique();
+            $table->string('profession')->nullable();
             $table->char('gender', 1)->nullable();
             $table->date('birth_date')->nullable();
-            $table->string('picture')->default('default_picture.jpg');
+            $table->string('picture')->default('default_picture.jpg')->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->double('rate', 8, 2)->nullable();
             $table->string('experience', 200)->nullable();
+            $table->text('description')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

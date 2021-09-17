@@ -17,15 +17,15 @@ class CreateTraineesTable extends Migration
             $table->id();
             $table->boolean('active')->default(true);
             $table->string('name');
-            $table->string('address'); 
-            $table->string('city');
-            $table->string('phone');
+            $table->string('address')->nullable(); 
+            $table->string('city')->nullable();
+            $table->string('phone')->nullable();
             $table->string('email')->unique();
             $table->string('picture')->default('default_picture');
             $table->string('description')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            $table->rememberToken(); 
             $table->timestamps();
         });
     }

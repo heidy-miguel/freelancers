@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Freelancers Consulting',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Freelancers</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/logo.jpeg',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'freelancers',
 
     /*
     |--------------------------------------------------------------------------
@@ -69,7 +69,7 @@ return [
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
     'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    'usermenu_profile_url' => false, 
 
     /*
     |--------------------------------------------------------------------------
@@ -188,9 +188,9 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'admin/dashboard', 
     'logout_url' => 'logout',
-    'login_url' => 'login',
+    'login_url' => 'login', 
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
@@ -232,12 +232,6 @@ return [
             'topnav_right' => true,
         ],
         [
-            'text'         => 'logout',
-            'route'        => 'instructor.logout',
-            'icon'         => 'fa-sign-out-alt',
-            'topnav_right' => true,
-        ],
-        [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
@@ -252,12 +246,21 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        'INSTRUTORES',
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text' => 'Instrutores',
+            'route' => 'admin.instructors',
+            'icon' => 'fas fa-fw fa-user', 
+        ],
+        [
+            'text' => 'Trainees',
+            'route' => 'admin.trainees',
+            'icon' => 'fas fa-fw fa-user', 
+        ],
+        [
+            'text' => 'Solicitações',
+            'route' => 'admin.jobs',
+            'icon' => 'fas fa-fw fa-user', 
         ],
         ['header' => 'account_settings'],
         [
