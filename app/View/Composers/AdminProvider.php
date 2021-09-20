@@ -52,11 +52,15 @@ class AdminProvider extends ServiceProvider
 
         View::composer('dashboard.admin.home', function ($view) {
             $total_instructors = Instructor::all()->count();
+            $total_trainees = Trainee::all()->count();
+            $total_jobs = Job::all()->count();
             $lastest_instructors = Instructor::latest('created_at')->orderBy('created_at', 'desc')->take(8)->get();
             $lastest_jobs = Job::latest('created_at')->orderBy('created_at', 'desc')->take(7)->get();
             
             $view->with([
                 'total_instructors' => $total_instructors, 
+                'total_trainees' => $total_trainees, 
+                'total_jobs' => $total_jobs, 
                 'lastest_instructors' => $lastest_instructors,
                 'lastest_jobs' => $lastest_jobs,
             ]);

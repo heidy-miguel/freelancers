@@ -11,7 +11,7 @@
     <div class="card card-widget widget-user">
       <!-- Add the bg color to the header using any of the bg-* classes -->
       <div class="widget-user-header bg-dark">
-        <h3 class="widget-user-username"><?php echo e(Auth::guard('instructor')->user()->name); ?></h3> 
+        <h3 class="widget-user-username"><?php echo e(ucwords(Auth::guard('instructor')->user()->name)); ?></h3> 
         <h5 class="widget-user-desc"><?php echo e(Auth::guard('instructor')->user()->description); ?></h5>
       </div>
       <div class="widget-user-image">  
@@ -71,25 +71,25 @@
                   <div class="form-group row">
                     <label for="first_name" class="col-sm-2 col-form-label">Nome</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" name="first_name" id="first_name" value="<?php echo e(Auth::guard('instructor')->user()->first_name); ?>">
+                      <input type="text" class="form-control" name="first_name" id="first_name" value="<?php echo e(ucwords(Auth::guard('instructor')->user()->first_name)); ?>">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="middle_name" class="col-sm-2 col-form-label">Seg. Nome</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" name="middle_name" id="middle_name" value="<?php echo e(Auth::guard('instructor')->user()->middle_name); ?>">
+                      <input type="text" class="form-control" name="middle_name" id="middle_name" value="<?php echo e(ucwords(Auth::guard('instructor')->user()->middle_name)); ?>">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="last_name" class="col-sm-2 col-form-label">Apelido</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" name="last_name" id="last_name" value="<?php echo e(Auth::guard('instructor')->user()->last_name); ?>">
+                      <input type="text" class="form-control" name="last_name" id="last_name" value="<?php echo e(ucwords(Auth::guard('instructor')->user()->last_name)); ?>">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="profession" class="col-sm-2 col-form-label">Profissão</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" name="profession" id="profession" value="<?php echo e(Auth::guard('instructor')->user()->profession); ?>">
+                      <input type="text" class="form-control" name="profession" id="profession" value="<?php echo e(ucwords(Auth::guard('instructor')->user()->profession)); ?>">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -152,8 +152,8 @@
                           <span class="time"><i class="far fa-clock mr-1" aria-hidden="true"></i>
                             <?php echo e($education->start_date); ?> - <?php echo e($education->end_date); ?></span>
 
-                          <h3 class="timeline-header"><a href="<?php echo e(route('job.show', [$education->id])); ?>"><?php echo e($education->study_area); ?></a>
-                          <small> | <?php echo e($education->school); ?> </small></h3>
+                          <h3 class="timeline-header"><a href="#"><?php echo e(ucwords($education->study_area)); ?></a>
+                          <small> | <?php echo e(ucwords($education->school)); ?> </small></h3>
 
                           <div class="timeline-body">
                             <?php echo e($education->description); ?>
@@ -161,7 +161,7 @@
                           </div>
                           <div class="timeline-footer">
                             <?php $__currentLoopData = $education->certificates; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $certificate): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <a id="#download_certificate" href="<?php echo e(asset( $certificate->name )); ?>"  class="btn btn-primary btn-sm"><?php echo e($certificate->name); ?></a>
+                            <a id="download_certificate" href="<?php echo e(asset( $certificate->name )); ?>"  class="btn btn-primary btn-sm"><?php echo e($certificate->name); ?></a>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                           </div>
                         </div>
@@ -241,6 +241,33 @@
       });
       $('#more-employment-btn').click(function(e){
         $('#employment-modal').modal('show');
+      });
+
+      $('#download_certificate').click(function(e) {
+        /* Act on the event */
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': jQUERY('meta[name="csrf-token"]').attr('content')
+          }
+        });
+
+        e.preventDefault();
+
+
+        $.ajax({
+          url: '/download',
+          type: 'GET',
+        })
+        .done(function() {
+          console.log("success");
+        })
+        .fail(function() {
+          console.log("error");
+        })
+        .always(function() {
+          console.log("complete");
+        });
+        
       });
     });
 </script>

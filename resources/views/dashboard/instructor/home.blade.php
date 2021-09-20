@@ -12,7 +12,7 @@
     <div class="card card-widget widget-user">
       <!-- Add the bg color to the header using any of the bg-* classes -->
       <div class="widget-user-header bg-dark">
-        <h3 class="widget-user-username">{{ Auth::guard('instructor')->user()->name }}</h3> 
+        <h3 class="widget-user-username">{{ ucwords(Auth::guard('instructor')->user()->name) }}</h3> 
         <h5 class="widget-user-desc">{{ Auth::guard('instructor')->user()->description }}</h5>
       </div>
       <div class="widget-user-image">  
@@ -72,25 +72,25 @@
                   <div class="form-group row">
                     <label for="first_name" class="col-sm-2 col-form-label">Nome</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" name="first_name" id="first_name" value="{{ Auth::guard('instructor')->user()->first_name }}">
+                      <input type="text" class="form-control" name="first_name" id="first_name" value="{{ ucwords(Auth::guard('instructor')->user()->first_name) }}">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="middle_name" class="col-sm-2 col-form-label">Seg. Nome</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" name="middle_name" id="middle_name" value="{{ Auth::guard('instructor')->user()->middle_name }}">
+                      <input type="text" class="form-control" name="middle_name" id="middle_name" value="{{ ucwords(Auth::guard('instructor')->user()->middle_name) }}">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="last_name" class="col-sm-2 col-form-label">Apelido</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" name="last_name" id="last_name" value="{{ Auth::guard('instructor')->user()->last_name }}">
+                      <input type="text" class="form-control" name="last_name" id="last_name" value="{{ ucwords(Auth::guard('instructor')->user()->last_name) }}">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="profession" class="col-sm-2 col-form-label">Profissão</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" name="profession" id="profession" value="{{ Auth::guard('instructor')->user()->profession }}">
+                      <input type="text" class="form-control" name="profession" id="profession" value="{{ ucwords(Auth::guard('instructor')->user()->profession) }}">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -153,17 +153,17 @@
                           <span class="time"><i class="far fa-clock mr-1" aria-hidden="true"></i>
                             {{ $education->start_date }} - {{ $education->end_date }}</span>
 
-                          <h3 class="timeline-header"><a href="{{ route('job.show', [$education->id]) }}">{{ $education->study_area }}</a>
-                          <small> | {{ $education->school }} </small></h3>
+                          <h3 class="timeline-header"><a href="#">{{ ucwords($education->study_area) }}</a>
+                          <small> | {{ ucwords($education->school) }} </small></h3>
 
                           <div class="timeline-body">
                             {{ $education->description }}
                           </div>
-<!--                           <div class="timeline-footer">
+                          <div class="timeline-footer">
                             @foreach($education->certificates as $certificate)
-                            <a id="#download_certificate" href="{{ asset( $certificate->name ) }}"  class="btn btn-primary btn-sm">{{ $certificate->name }}</a>
+                            <a id="download_certificate" href="{{ asset( $certificate->name ) }}"  class="btn btn-primary btn-sm">{{ $certificate->name }}</a>
                             @endforeach
-                          </div> -->
+                          </div>
                         </div>
                       </div>
                         @endforeach
@@ -243,14 +243,20 @@
         $('#employment-modal').modal('show');
       });
 
-      $('#download_certificate').click(function(event) {
+      $('#download_certificate').click(function(e) {
         /* Act on the event */
-        event.preventDefault();
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': jQUERY('meta[name="csrf-token"]').attr('content')
+          }
+        });
+
+        e.preventDefault();
+
+
         $.ajax({
-          url: '/path/to/file',
+          url: '/download',
           type: 'GET',
-          dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-          data: {param1: 'value1'},
         })
         .done(function() {
           console.log("success");

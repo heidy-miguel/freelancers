@@ -111,13 +111,13 @@
 
 @section('auth_footer')
     <p class="my-0">
-        <a href="{{ route('trainee.login') }}">
-            Login como empresa
+        <a href="{{ route('instructor.login') }}">
+            Já me registei. Fazer login
         </a>
     </p>
     <p class="my-0">
-        <a href="{{ route('instructor.login') }}">
-            Já me registei. Fazer login
+        <a href="{{ route('trainee.register') }}">
+            Registar-se como empresa
         </a>
     </p>
 @stop

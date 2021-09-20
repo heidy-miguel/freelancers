@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+  public function download(){
+    
+  }
     function create(Request $request){
           //Validate Inputs
           $request->validate([

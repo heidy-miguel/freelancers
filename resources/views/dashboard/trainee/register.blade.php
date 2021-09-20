@@ -11,7 +11,7 @@
     @php( $register_url = $register_url ? url($register_url) : '' )
 @endif
 
-@section('auth_header', 'REGISTAR-SE COMO FREELANCER')
+@section('auth_header', 'REGISTAR-SE COMO EMPRESA')
 
 @section('auth_body')
     <form action="{{ route('trainee.create') }}" method="post">
@@ -101,7 +101,7 @@
         </a>
     </p>
     <p class="my-0">
-        <a href="{{ route('trainee.login') }}">
+        <a href="{{ route('instructor.register') }}">
             Registar-se como freelancer
         </a>
     </p>
