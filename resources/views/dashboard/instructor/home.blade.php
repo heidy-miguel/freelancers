@@ -1,379 +1,268 @@
 @extends('adminlte::page')
-
-@section('title', 'Usuários')
 @push('css')
   <link rel="stylesheet" href="{{ asset('vendor/plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/plugins/toastr/toastr.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/plugins/bs-stepper/css/bs-stepper.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endpush
+
 @section('content')
-@include('layouts.form_model')
-@include('modal.language')
-      <div class="container-fluid">
+<div class="row">
+  <div class="col-md-8 mx-auto pt-4">
+    <!-- Widget: user widget style 1 -->
+    <div class="card card-widget widget-user">
+      <!-- Add the bg color to the header using any of the bg-* classes -->
+      <div class="widget-user-header bg-dark">
+        <h3 class="widget-user-username">{{ Auth::guard('instructor')->user()->name }}</h3> 
+        <h5 class="widget-user-desc">{{ Auth::guard('instructor')->user()->description }}</h5>
+      </div>
+      <div class="widget-user-image">  
+        <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/img/instructors/' . Auth::guard('instructor')->user()->picture ) }}" style="width: 100px; height: 100px" alt="{{ ucwords(Auth::guard('instructor')->user()->name) }}"> 
+      </div> 
+      <div class="card-footer">
         <div class="row">
-          <div class="col-md-3">
-
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="{{ asset('img/instructors/default_picture.jpg') }}"
-                       alt="User profile picture">
-                </div>
-
-                <h3 class="profile-username text-center">{{ Auth::guard('instructor')->user()->name }}</h3>
-
-                <p class="text-muted text-center">Software Engineer</p>
-
-                <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <b>Followers</b> <a class="float-right">1,322</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Following</b> <a class="float-right">543</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Friends</b> <a class="float-right">13,287</a>
-                  </li>
-                </ul>
-
-                <a href="#" class="btn btn-success btn-block"><b>{{ number_format(Auth::guard('instructor')->user()->rate, 2, ',', '.' ) }} kz</b></a>
-              </div>
-              <!-- /.card-body -->
+          <div class="col-sm-4 border-right">
+            <div class="description-block">
+              <h5 class="description-header">3,200</h5>
+              <span class="description-text">SALES</span>
             </div>
-            <!-- /.card -->
-
-            <!-- About Me Box -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">About Me</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <strong><i class="fas fa-book mr-1"></i> Education</strong>
-
-                <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-                <p class="text-muted">{{ Auth::guard('instructor')->user()->address }}</p>
-                <p class="text-muted">{{ Auth::guard('instructor')->user()->address }} - Angola</p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  @foreach(Auth::guard('instructor')->user()->courses as $course)
-                  <span class="badge badge-primary">{{ $course->name }}</span>
-                  @endforeach
-                </p>
-
-                <hr>
-
-                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                <p class="text-muted">{{ Auth::guard('instructor')->user()->experience }}</p>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+            <!-- /.description-block -->
           </div>
           <!-- /.col -->
-          <div class="col-md-9">
-            <div class="card">
-              <div class="card-header p-2">
-                <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
-                </ul>
-              </div><!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <div class="tab-content">
-                  <div class="active tab-pane" id="activity">
-                    <!-- Post -->
-
-                <table class="table table-striped table-valign-middle">
-                  <thead>
-                  <tr>
-                    <th>Curso</th>
-                    <th>Início</th>
-                    <th>Fim</th>
-                    <th>Valor</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    @foreach(Auth::guard('instructor')->user()->trainings as $training)
-                  <tr class="clickable-row" data-href="{{ route('training.show', [$training->id]) }}" role="button">
-                    <td>{{ $training->course->name }}</td>
-                    <td>{{ date('d-M-Y', strtotime($training->course->start_date)) }}</td>
-                    <td>{{ date('d-M-Y', strtotime($training->course->end_date)) }}</td>
-                    <td>{{ number_format($training->course->rate, 2, ',', '.' ) }} kz</td>
-                  </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-
-                  </div>
-                  <!-- /.tab-pane -->
-                  <div class="tab-pane" id="timeline">
-                    <!-- The timeline -->
-                    <div class="timeline timeline-inverse">
-                      <!-- timeline time label -->
-                      <div class="time-label">
-                        <span class="bg-danger">
-                          10 Feb. 2014
-                        </span>
-                      </div>
-                      <!-- /.timeline-label -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-envelope bg-primary"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                          <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                          <div class="timeline-body">
-                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                            quora plaxo ideeli hulu weebly balihoo...
-                          </div>
-                          <div class="timeline-footer">
-                            <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                            <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-user bg-info"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                          <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                          </h3>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-comments bg-warning"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-
-                          <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                          <div class="timeline-body">
-                            Take me to your leader!
-                            Switzerland is small and neutral!
-                            We are more like Germany, ambitious and misunderstood!
-                          </div>
-                          <div class="timeline-footer">
-                            <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <!-- timeline time label -->
-                      <div class="time-label">
-                        <span class="bg-success">
-                          3 Jan. 2014
-                        </span>
-                      </div>
-                      <!-- /.timeline-label -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-camera bg-purple"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                          <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                          <div class="timeline-body">
-                            <img src="https://placehold.it/150x100" alt="...">
-                            <img src="https://placehold.it/150x100" alt="...">
-                            <img src="https://placehold.it/150x100" alt="...">
-                            <img src="https://placehold.it/150x100" alt="...">
-                          </div>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <div>
-                        <i class="far fa-clock bg-gray"></i>
-                      </div> 
+          <div class="col-sm-4 border-right">
+            <div class="description-block">
+              <h5 class="description-header">13,000</h5>
+              <span class="description-text">FOLLOWERS</span>
+            </div>
+            <!-- /.description-block -->
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-4">
+            <div class="description-block">
+              <h5 class="description-header">45646</h5>
+              <span class="description-text">Trabalhos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-8 mx-auto">
+      <div class="card card-dark card-tabs">
+        <div class="card-header p-0 pt-1">
+          <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Informação Geral</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-one-educations-tab" data-toggle="pill" href="#custom-tabs-one-educations" role="tab" aria-controls="custom-tabs-one-educations" aria-selected="false">Formação</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-one-employment-tab" data-toggle="pill" href="#custom-tabs-one-employment" role="tab" aria-controls="custom-tabs-one-employment" aria-selected="false">Experiência Profissional</a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <div class="tab-content" id="custom-tabs-one-tabContent">
+            <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+              <form method="post" action="{{ route('instructor.update_personal_info') }}" class="form-horizontal" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="instructor_id" value="{{ Auth::guard('instructor')->user()->id }}">
+                  <div class="form-group row">
+                    <label for="first_name" class="col-sm-2 col-form-label">Nome</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="first_name" id="first_name" value="{{ Auth::guard('instructor')->user()->first_name }}">
                     </div>
                   </div>
-                  <!-- /.tab-pane -->
+                  <div class="form-group row">
+                    <label for="middle_name" class="col-sm-2 col-form-label">Seg. Nome</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="middle_name" id="middle_name" value="{{ Auth::guard('instructor')->user()->middle_name }}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="last_name" class="col-sm-2 col-form-label">Apelido</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="last_name" id="last_name" value="{{ Auth::guard('instructor')->user()->last_name }}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="profession" class="col-sm-2 col-form-label">Profissão</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="profession" id="profession" value="{{ Auth::guard('instructor')->user()->profession }}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="birth_date" class="col-sm-2 col-form-label">Data de Nascimento</label>
+                    <div class="col-sm-10">
+                      <input type="date" class="form-control" name="birth_date" id="birth_date" value="{{ Auth::guard('instructor')->user()->birth_date }}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="city" class="col-sm-2 col-form-label">Cidade</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="city" id="city" value="{{ Auth::guard('instructor')->user()->city }}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="address" class="col-sm-2 col-form-label">Endereço</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="address" id="address" value="{{ Auth::guard('instructor')->user()->address }}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="phone" class="col-sm-2 col-form-label">Telefone</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="phone" id="phone" value="{{ Auth::guard('instructor')->user()->phone }}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="email" class="col-sm-2 col-form-label">E-mail</label>
+                    <div class="col-sm-10">
+                      <input type="email" class="form-control" name="email" id="email" value="{{ Auth::guard('instructor')->user()->email }}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="picture" class="col-sm-2 col-form-label">Fotografia</label>
+                    <div class="col-sm-10">
+                      <input type="file" name="picture" class="form-control" id="picture">
+                    </div>
+                  </div>
+                  <div class="form-group row"> 
+                    <label for="end_date" class="col-sm-2 col-form-label">Descrição</label>
+                    <div class="col-sm-10">
+                      <textarea rows="5" style="width: 100%;" name="description">{{ Auth::guard('instructor')->user()->description }}</textarea>
+                  </div>
+                  </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-dark float-right">Salvar</button>
+                </div>
+                <!-- /.card-footer -->
+              </form>
+            </div>
+            
+            <div class="tab-pane fade" id="custom-tabs-one-educations" role="tabpanel" aria-labelledby="custom-tabs-one-educations-tab">
+                    <div class="timeline timeline-inverse">
+                      <!-- timeline item -->
+                        @foreach(Auth::guard('instructor')->user()->educations as $education)
+                      <div>
+                        <i class="fa fa-graduation-cap"></i>
+                        <div class="timeline-item">
+                          <span class="time"><i class="far fa-clock mr-1" aria-hidden="true"></i>
+                            {{ $education->start_date }} - {{ $education->end_date }}</span>
 
-                  <div class="tab-pane" id="settings">
-                    <form class="form-horizontal dropzone" method="post" action="{{ route('instructor.update') }}" id="instructor-form" enctype="multipart/form-data">
-                      @method('post')
-                      @csrf
-                      <input type="hidden" name="id" value="{{Auth::guard('instructor')->user()->id}}">
-                      <div class="form-group row">
-                        <label for="first_name" class="col-sm-2 col-form-label">Nome</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" name="first_name" id="first_name" value="{{ Auth::guard('instructor')->user()->first_name }}" placeholder="Nome" required>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="middle_name" class="col-sm-2 col-form-label">Segundo Nome</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" name="middle_name" id="middle_name" value="{{ Auth::guard('instructor')->user()->middle_name }}" placeholder="Segundo nome">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="last_name" class="col-sm-2 col-form-label">Apelido</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" name="last_name" id="last_name" value="{{ Auth::guard('instructor')->user()->last_name }}" placeholder="Apelido" required>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="email" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" name="email" id="emaill" value="{{ Auth::guard('instructor')->user()->email}}" placeholder="Email">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="phone" class="col-sm-2 col-form-label">Telefone</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" name="phone" id="phone" value="{{ Auth::guard('instructor')->user()->phone }}" placeholder="Name">
-                        </div>
-                      </div>
+                          <h3 class="timeline-header"><a href="{{ route('job.show', [$education->id]) }}">{{ $education->study_area }}</a>
+                          <small> | {{ $education->school }} </small></h3>
 
-                      <div class="form-group row">
-                        <label for="inputSkills" class="col-sm-2 col-form-label">Cursos</label>
-                        <div class="col-sm-10 select2-primary">
-                          <select class="form-control select2" name="courses[]" multiple="multiple" style="width: 100%;">
-                            @foreach($courses as $course)
-                              @if(in_array($course->id, Auth::guard('instructor')->user()->courses->pluck('id')->toArray()))
-                                <option value="{{ $course->id }}" selected>
-                                  {{ $course->name }}
-                                </option>
-                              @else
-                                <option value="{{ $course->id }}">
-                                  {{ $course->name }}
-                                </option>
-                              @endif
+                          <div class="timeline-body">
+                            {{ $education->description }}
+                          </div>
+<!--                           <div class="timeline-footer">
+                            @foreach($education->certificates as $certificate)
+                            <a id="#download_certificate" href="{{ asset( $certificate->name ) }}"  class="btn btn-primary btn-sm">{{ $certificate->name }}</a>
                             @endforeach
-                          </select>
+                          </div> -->
                         </div>
                       </div>
+                        @endforeach
+                      <!-- END timeline item -->
 
-                      <div class="form-group row">
-                        <label for="experience" class="col-sm-2 col-form-label">Experiência</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" id="experience" placeholder="Experience">  {{ Auth::guard('instructor')->user()->experience }}"</textarea>
-                        </div>
+                      <div>
+                            <a href="#" id="more-education-btn" class="btn btn-dark btn-sm">Mais Formação</a>
                       </div>
+                    </div>
+            </div>
 
-                      <div class="form-group row">
-                        <label for="experience" class="col-sm-2 col-form-label">Experiência</label>
-                        <div class="col-sm-10">
-                          <input type="file" name="image">
-                        </div>
-                      </div>
+            <div class="tab-pane fade" id="custom-tabs-one-employment" role="tabpanel" aria-labelledby="custom-tabs-one-employment-tab">
+                    <div class="timeline timeline-inverse">
+                      <!-- timeline item -->
+                        @foreach(Auth::guard('instructor')->user()->employments as $employment)
+                      <div>
+                        <i class="fa fa-graduation-cap"></i>
+                        <div class="timeline-item">
+                          <span class="time"><i class="far fa-clock mr-1" aria-hidden="true"></i>
+                            {{ $employment->start_date }} - {{ $employment->end_date }}</span>
 
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" required> Concordo com os <a href="#">termos e condições</a>
-                            </label>
+                          <h3 class="timeline-header"><a href="{{ route('job.show', [$education->id]) }}">{{ $employment->title }}</a>
+                          <small> | {{ $employment->company }} </small></h3>
+
+                          <div class="timeline-body">
+                            {{ $employment->description }} 
                           </div>
                         </div>
                       </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">Submit</button>
-                        </div>
+                        @endforeach
+                      <!-- END timeline item -->
+
+                      <div>
+                            <a id="more-employment-btn" class="btn btn-dark btn-sm">Mais Experiência</a>
                       </div>
-                    </form>
-                  </div>
-<a href="{{ route('instructor.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
-                  <!-- /.tab-pane -->
-                </div>
-                <!-- /.tab-content -->
-              </div><!-- /.card-body -->
+                    </div>
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+        <!-- /.card -->
+      </div>
+    </div>
+</div>
+
+@include('dashboard.instructor.modal.education')
+@include('dashboard.instructor.modal.employment')
 @endsection
 @push('js')
-<script src="{{ asset('vendor/plugins/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('vendor/plugins/select2/js/select2.full.min.js') }}"></script>
-<script src="{{ asset('vendor/plugins/toastr/toastr.min.js') }}"></script>
-<script src="{{ asset('vendor/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
-<script>
+<script type="text/javascript" src="{{ asset('vendor/plugins/select2/js/select2.full.min.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function($){
+      $('.select2').select2();
 
-    $(window).on('load', function() {
-        $('#modal-xl').modal('show');
+    var country_url = "{{ asset('countries.json') }}";
+    $.getJSON(country_url, function(data) {
+        $.each(data, function(index, val) {
+          $('#country').append('<option>' + val.name + '</option>'); 
+        });
     });
 
-$(document).ready(function () {
-      var stepper= new Stepper(document.querySelector('.bs-stepper'), {
-        linear: false,
-        animation: true
-      });
+    var city_url = "{{ asset('city.json') }}";
+    $.getJSON(city_url, function(data) {
+        $.each(data, function(index, val) {
+          $('#city').append('<option>' + val.name + '</option>'); 
+        });
+    });
 
-
-        $('.nextstep').click(function(){
-          stepper.next();
-        })
-
-        $('.previousstep').click(function(){
-          stepper.previous();
-        })
-
-    // make table row clickable
-    $(".clickable-row").click(function() {
+      // make table row clickable
+      $(".clickable-row").click(function() {
         window.location = $(this).data("href");
-    }); 
+        });
 
-  $(function () {
-    // make table row clickable
-  $('.select2').select2()
-
-    // message notification
-    @if(Session::has('message'))
-      toastr.success("{{ Session::get('message') }}");
-    @endif
-  });
-
-  var city_url = "{{ asset('city.json') }}";
-  $.getJSON(city_url, function(data) {
-      $.each(data, function(index, val) {
-        $('#city').append('<option>' + val.name + '</option>'); 
+      $('#more-education-btn').click(function(e){
+        $('#education-modal').modal('show');
       });
-  });
-
-  var languages_url = "{{ asset('data/languages.json') }}";
-  $.getJSON(languages_url, function(data) {
-      $.each(data, function(index, val) {
-        $('#language').append('<option>' + val.name + '</option>'); 
+      $('#more-employment-btn').click(function(e){
+        $('#employment-modal').modal('show');
       });
-  });
 
-});
+      $('#download_certificate').click(function(event) {
+        /* Act on the event */
+        event.preventDefault();
+        $.ajax({
+          url: '/path/to/file',
+          type: 'GET',
+          dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+          data: {param1: 'value1'},
+        })
+        .done(function() {
+          console.log("success");
+        })
+        .fail(function() {
+          console.log("error");
+        })
+        .always(function() {
+          console.log("complete");
+        });
+        
+      });
+    });
 </script>
-@endpush
+@endpush 

@@ -39,8 +39,12 @@
               <input type="date" class="form-control" name="end_date" required>
             </div>
             <div class="form-group">
+              <label for="file">Descrição</label>
+              <textarea name="description" id="description" class="form-control" style="width: 100%" cols="60" required></textarea>
+            </div>
+            <div class="form-group">
               <label for="file">Certificado</label>
-              <input type="file" name="file" id="file" except="pdf" class="form-control" style="width: 100%">
+              <input type="file" name="file" id="file" except="pdf" class="form-control" style="width: 100%" required>
             </div>
           </div>
           <div class="modal-footer justify-content-between">

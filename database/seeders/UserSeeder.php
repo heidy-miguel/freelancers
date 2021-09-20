@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -15,18 +16,12 @@ class UserSeeder extends Seeder
     public function run()
     {
         //
-            // DB::table('users')->insert([
-            //     'first_name' => 'Heidy',
-            //     'last_name' => 'Miguel',
-            //     'gender' => 'm',
-            //     'dob' => now(),
-            //     'city' => 'luanda',
-            //     'cidade do kilamba, ed. B24, apt 6',
-            //     'phone_one' => '923963456',
-            //     'email' => 'admin@gmail.com',
-            //     'rate' => 6500,
-            //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            // ]);
+            DB::table('admins')->insert([
+                'name' => 'Heidy Miguel',
+                'phone' => '923963456',
+                'email' => 'admin@gmail.com',
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            ]);
 
             // DB::table('users')->insert([
             //     'first_name' => 'Jorge',
@@ -36,10 +31,32 @@ class UserSeeder extends Seeder
             // ]);
 
             DB::table('admins')->insert([
-                'name' => 'Admin', 
-                'phone' => '929211321', 
-                'email' => 'admin@gmail.com',
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+                'name' => 'Herodes Barbosa',  
+                'phone' => '900000000', 
+                'email' => 'herodes.barbosa@freelancersconsulting.ao',
+                'password' => Hash::make('nM?r~XX8kZZx'),
             ]);
+
+            DB::table('admins')->insert([
+                'name' => 'Emílio Ferreira',  
+                'phone' => '911111111', 
+                'email' => 'emilio.ferreira@freelancersconsulting.ao',
+                'password' => Hash::make('eD!or=E}UyCn'),
+            ]);
+
+            DB::table('admins')->insert([
+                'name' => 'Kassio Barbosa',  
+                'phone' => '922222222', 
+                'email' => 'kassio.barbosa@freelancersconsulting.ao',
+                'password' => Hash::make('Br+2KdcH)zwo'),
+            ]);
+
+            DB::table('admins')->insert([
+                'name' => 'Vatiara António',  
+                'phone' => '922222222', 
+                'email' => 'vatiara.antonio@freelancersconsulting.ao',
+                'password' => Hash::make('QVPmA-}N%=N^'),
+            ]);
+
     }
 }

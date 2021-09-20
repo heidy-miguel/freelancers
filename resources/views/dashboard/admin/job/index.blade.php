@@ -6,7 +6,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header border-transparent">
-                <h3 class="card-title">Latest Orders</h3>
+                <h3 class="card-title">Solicitações Recentes</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
@@ -15,8 +15,8 @@
                     <thead>
                     <tr>
                       <th>Título</th>
-                      <th>Título</th>
-                      <th>Rate</th>
+                      <th>Cliente</th>
+                      <th>Pagamento</th>
                       <th>Início</th>
                       <th>Fim</th>
                     </tr>

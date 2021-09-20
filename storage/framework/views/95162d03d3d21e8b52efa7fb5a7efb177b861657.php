@@ -42,11 +42,11 @@
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <!-- <li><a class="nav-link scrollto active" href="#hero">Home</a></li> -->
-          <li><a class="nav-link scrollto" href="<?php echo e(route('instructor.explore')); ?>">Freelancers</a></li>
-          <li><a class="nav-link scrollto" href="<?php echo e(route('job.index')); ?>">Oportunidades</a></li>
+<!--           <li><a class="nav-link scrollto" href="<?php echo e(route('instructor.explore')); ?>">Freelancers</a></li> -->
+<!--           <li><a class="nav-link scrollto" href="<?php echo e(route('job.index')); ?>">Oportunidades</a></li> -->
           <li><a class="nav-link scrollto" href="<?php echo e(route('welcome')); ?>#services">Serviços</a></li>
-          <li><a class="nav-link scrollto " href="<?php echo e(route('welcome')); ?>#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="<?php echo e(route('welcome')); ?>#team">Team</a></li>
+<!--           <li><a class="nav-link scrollto " href="<?php echo e(route('welcome')); ?>#portfolio">Portfolio</a></li>
+          <li><a class="nav-link scrollto" href="<?php echo e(route('welcome')); ?>#team">Team</a></li> -->
 <!--          <li><a href="#">Blog</a></li>
            <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
@@ -69,14 +69,14 @@
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-      <?php if(auth()->guard('trainee')->check()): ?>
+<!--       <?php if(auth()->guard('trainee')->check()): ?>
       <a href="<?php echo e(url('/instructor/register')); ?>" class="get-started-btn scrollto">PUBLICAR</a>
-      <?php endif; ?>
+      <?php endif; ?> -->
       <?php if(auth()->guard('instructor')->check()): ?>
       <a href="<?php echo e(url('/instructor/edit')); ?>" class="get-started-btn scrollto">PERFIL</a>
       <?php endif; ?>
-      <?php if(auth()->guard('instructor')->guest()): ?> 
-      <a href="<?php echo e(url('/instructor/register')); ?>" class="get-started-btn scrollto">REGISTAR-SE</a>
+<!--       <?php if(auth()->guard('instructor')->guest()): ?> 
+      <a href="<?php echo e(url('/instructor/register')); ?>" class="get-started-btn scrollto">REGISTAR-SE</a> -->
       <?php endif; ?>
       <?php if(auth()->guard('instructor')->guest()): ?> 
       <a href="<?php echo e(url('/instructor/login')); ?>" class="get-started-btn">LOGIN</a>
@@ -99,41 +99,41 @@
 
           <div class="col-lg-3 col-md-6 footer-contact">
             <h3>Freelancers Consulting<span>.</span></h3>
+            <p>FreeLancers Consulting é uma organição que tem objectivo de resgatar ou dar a oportunidade aos novos talentos e empresas se conectarem de maneira fácil e fluida.</p>
+            <br>
             <p>
-              Luanda<br>
-              Angola<br><br>
-              <strong>Telefone:</strong>+244 934 612 659<br>
+              Bairro do Prenda <br>
+              Luanda, Angola<br><br>
+              <strong>Telefone:</strong> +244 934 612 659<br>
               <strong>E-mail:</strong> geral@freelancersconsulting<br>
             </p>
           </div>
 
           <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Clientes</h4>
+            <h4>Empresas</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Como contratar</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketplace de talentos</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Ver Área da Empresa</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Publicar Anúncio de Emprego</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Soluções Para Empresas</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Contacte-nos</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Formadores</h4>
+            <h4>Sobŕe Nós</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Como encontrar trabalho</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Termos de Serviços</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Politica de Privacidade</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Ajuda</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Politica de Protecção de Dados</a></li>
             </ul>
           </div>
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Join Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <h4>Nosso Newsletter Semanal</h4>
+            <p>Subscreva ao nosso Newsletter semanal e fique a par de todas as novidades.</p>
             <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+              <input type="email" name="email"><input type="submit" value="Subscrever">
             </form>
           </div>
 
@@ -145,7 +145,7 @@
 
       <div class="me-md-auto text-center text-md-start">
         <div class="copyright">
-          &copy; Direitos reservados <strong><span>Freelancers Consulting</span></strong>.
+          &copy; Direitos Reservados <strong><span>Freelancers Consulting</span></strong>.
         </div>
       </div>
       <div class="social-links text-center text-md-end pt-3 pt-md-0">

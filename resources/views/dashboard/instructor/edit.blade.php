@@ -4,6 +4,7 @@
   <link rel="stylesheet" href="{{ asset('vendor/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endpush
+
 @section('content')
       <div class="container-fluid">
         <div class="row">
@@ -405,7 +406,7 @@
       e.preventDefault();
       $('#education-modal').modal('show');
     });
-    
+
   });
 </script>
 @endpush

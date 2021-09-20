@@ -16,6 +16,7 @@
                     <tr>
                       <th>Nome</th>
                       <th>Profissão</th>
+                      <th>Contacto</th>
                       <th>Rate</th>
                     </tr>
                     </thead>
@@ -27,6 +28,7 @@
                         {{ ucwords($instructor->name) }}
                       </td>
                       <td>{{ ucwords($instructor->profession) }}</td>
+                      <td>{{ $instructor->phone }}</td>
                       <td>{{ number_format($instructor->rate, 2, ',', '.' ) }} kz/hora</td>
                     </tr>
                     @endforeach

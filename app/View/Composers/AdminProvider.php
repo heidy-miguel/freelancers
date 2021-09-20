@@ -31,6 +31,11 @@ class AdminProvider extends ServiceProvider
     public function boot()
     {
 
+        View::composer('dashboard.admin.job.show', function($view){
+            $instructors = Instructor::all();
+            $view->with(['instructors' => $instructors]);
+        });
+
         View::composer('dashboard.admin.trainee.index', function($view){
             $trainees = Trainee::where('id', '>=', 1)->orderBy('created_at', 'desc')->paginate(15);
             $view->with(['trainees' => $trainees]);

@@ -97,7 +97,7 @@ class TraineeController extends Controller
         $creds = $request->only('email','password');
 
         if( Auth::guard('trainee')->attempt($creds) ){
-            return redirect()->route('trainee.home');
+            return redirect()->route('trainee.home'); 
         }else{
             return redirect()->route('trainee.login')->with('fail','Incorrect Credentials');
         }

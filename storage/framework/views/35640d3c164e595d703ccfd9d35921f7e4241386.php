@@ -3,6 +3,7 @@
   <link rel="stylesheet" href="<?php echo e(asset('vendor/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
 <?php $__env->stopPush(); ?>
+
 <?php $__env->startSection('content'); ?>
       <div class="container-fluid">
         <div class="row">
@@ -410,7 +411,7 @@
       e.preventDefault();
       $('#education-modal').modal('show');
     });
-    
+
   });
 </script>
 <?php $__env->stopPush(); ?>

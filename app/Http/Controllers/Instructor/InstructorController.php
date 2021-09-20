@@ -74,9 +74,10 @@ class InstructorController extends Controller
       $education->degree = $request->input('degree');
       $education->start_date = $request->input('start_date');
       $education->end_date = $request->input('end_date');
+      $education->description = $request->input('description');
       $education->instructor_id = $instructor->id;
       $saved = $education->save();
-      
+
       $certificate_name = null;
       if($request->hasFile('file')){
         $certificate = new Certificate();
@@ -85,7 +86,7 @@ class InstructorController extends Controller
 
           $path = 'public/docs/instructors/' . ucwords($instructor->first_name) . '_' . ucwords($instructor->last_name) . '/certificate/';
           $certificate_name = $education->study_area . '.' . $request->file->extension();
-          $certificate->name = 'storage/docs/instructors' . ucwords($request->first_name) . '_' . ucwords($request->last_name) . '/' . $certificate->name . '.' . $request->file->extension();
+          $certificate->name = 'storage/docs/instructors' . '/' . ucwords($instructor->first_name) . '_' . ucwords($instructor->last_name) . '/' . $certificate->name . '.' . $request->file->extension();
           $certificate->path = $path;
           $certificate->save();
           $request->file->storeAs($path, $certificate_name);
@@ -94,7 +95,7 @@ class InstructorController extends Controller
       if(!$saved){
         return response()->json(['code' => 0, 'message' => 'Something whent wrong!']);
       } else {
-        return redirect()->route('instructor.edit');
+        return redirect()->route('instructor.home');
       }
     }
 
@@ -138,10 +139,6 @@ class InstructorController extends Controller
         // }
         //$instructor->save();
         
-        $courses = $request->input('courses');
-        $instructor->courses()->detach();
-        $instructor->courses()->attach($courses);
-        
         $skills = $request->input('skills');
         $instructor->skills()->detach();
         $instructor->skills()->attach($skills);
@@ -160,7 +157,7 @@ class InstructorController extends Controller
       return view('dashboard.instructor.explore')->with('instructors', $instructors);
     }
 
-    public function update_personal_info(Request $request){
+    public function update_personal_info(Request $request){ 
       $instructor = Instructor::findOrFail($request->input('instructor_id'));
       if($instructor){
         // $validate_data = $request->validate($request->all(), [
@@ -224,7 +221,7 @@ class InstructorController extends Controller
         $creds = $request->only('email','password');
 
         if( Auth::guard('instructor')->attempt($creds) ){
-            return redirect()->route('instructor.edit');
+            return redirect()->route('instructor.home');
         }else{
             return redirect()->route('instructor.login')->with('fail','Incorrect Credentials');
         }

@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
         $employments = Employment::all();
 
         \App\Models\Job::all()->each(function($job) use($instructor){
-            $job->candidates()->attach(
+            $job->applicants()->attach(
                 Arr::random(Instructor::all()->pluck('id')->toArray(), rand(1, 23))
             );
         });

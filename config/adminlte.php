@@ -45,8 +45,8 @@ return [
     |
     */
 
-    'logo' => '<b>Freelancers</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/logo.jpeg',
+    'logo' => '<br><b>Freelancers Consulting</b>',
+    'logo_img' => 'presento/img/favicon.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -102,12 +102,12 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-primary',
+    'classes_auth_card' => 'bg-gradient-dark',
     'classes_auth_header' => '',
-    'classes_auth_body' => '',
+    'classes_auth_body' => 'bg-gradient-dark',
     'classes_auth_footer' => '',
     'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+    'classes_auth_btn' => 'btn-flat btn-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -188,7 +188,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'admin/dashboard', 
+    'dashboard_url' => '', 
     'logout_url' => 'logout',
     'login_url' => 'login', 
     'register_url' => 'register',
@@ -241,92 +241,27 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        'INSTRUTORES',
+
+        ['INSTRUTORES', 'can' => 'admin'],
         [
             'text' => 'Instrutores',
             'route' => 'admin.instructors',
-            'icon' => 'fas fa-fw fa-user', 
+            'icon' => 'fas fa-fw fa-user',
+            'can' => ['admin'], 
         ],
         [
             'text' => 'Trainees',
             'route' => 'admin.trainees',
             'icon' => 'fas fa-fw fa-user', 
+            'can' => ['admin'], 
         ],
         [
             'text' => 'Solicitações',
             'route' => 'admin.jobs',
             'icon' => 'fas fa-fw fa-user', 
+            'can' => ['admin'], 
         ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'blue',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+        
     ],
 
     /*

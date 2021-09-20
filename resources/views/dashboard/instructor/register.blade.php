@@ -1,93 +1,123 @@
-@extends('layouts.app')
-@section('main')
-    <section id="portfolio-details" class="portfolio-details">
-      <div class="container">
+@extends('adminlte::auth.auth-page', ['auth_type' => 'register'])
 
-        <div class="row gy-4">
+@php( $login_url = View::getSection('login_url') ?? config('adminlte.login_url', 'login') )
+@php( $register_url = View::getSection('register_url') ?? config('adminlte.register_url', 'register') )
 
-          <div class="col-lg-6">
-              <section id="register" class="d-flex align-items-center"> 
-                <div class="container" data-aos="zoom-out" data-aos-delay="100">
-                  <div class="row">
-                    <div class="col-xl-6">
-                      <h2>A melhor maneira de encontrar novas oportunidades e profissionais para a tua carreira ou projecto!</h2>
-                      <h3 style="color: white">Rápido, simples e ágil.</h3>
-                      <a href="#about" class="btn-get-started">Saber mais</a>
-                    </div>
-                  </div>
+@if (config('adminlte.use_route_url', false))
+    @php( $login_url = $login_url ? route($login_url) : '' )
+    @php( $register_url = $register_url ? route($register_url) : '' )
+@else
+    @php( $login_url = $login_url ? url($login_url) : '' )
+    @php( $register_url = $register_url ? url($register_url) : '' )
+@endif
+
+@section('auth_header', 'REGISTAR-SE COMO FREELANCER')
+
+@section('auth_body')
+    <form action="{{ route('instructor.create') }}" method="post">
+        {{ csrf_field() }}
+
+        {{-- First Name field --}}
+        <div class="input-group mb-3">
+            <input type="text" name="first_name" class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}"
+                   value="{{ old('first_name') }}" placeholder="Nome" autofocus>
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
                 </div>
-          </div>
-
-          <div class="col-lg-6 mt-5">
-<!--             <div class="portfolio-info">
-              <h3>Registar-se como Formador</h3>
-              <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
-              </ul>
             </div>
-            <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
-              <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-              </p>
-            </div> -->
-            <div class="portfolio-details">
-                <form id="registrationForm" action="{{ route('instructor.create') }}" method="post">
-                  @csrf
-                    <div class="form-group">
-                        <label for="first_name" class="form-label">Nome</label>
-                        <input type="text" class="form-control" name="first_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="last_name" class="form-label">Apelido</label>
-                        <input type="text" class="form-control" name="last_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="form-label">E-mail</label>
-                        <input type="email" class="form-control" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" placeholder="********">
-                    </div>
-                    <div class="form-group mb-0">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" name="terms" class="custom-control-input" required>
-                        <label class="" for="terms">Concordo com os <a href="#">termos e condições de serviços</a>.</label>
-                      </div>
-                    </div>
-                    <button type="submit" class="get-started-btn mt-3 rounded" style="float: right;">Registar-se</button>
-                </form>
-            </div>
-          </div>
+            @if($errors->has('first_name'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('first_name') }}</strong>
+                </div>
+            @endif
         </div>
-      </div>
-    </section><!-- End Portfolio Details Section -->
-@endsection
-@push('page_js')
-<script src="{{ asset('vendor/plugins/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-<script src="{{ asset('vendor/plugins/jquery-validation/additional-methods.min.js') }}"></script>
-<script type="text/javascript">
-    $(function() {
-        $('#registrationForm').validate({
-            rules: {
-                first_name: {
-                    required: true
-                },
-                last_name: {
-                    required: true
-                },
-            },
-            messages: {
-                first_name: {
-                    required: "insere"
-                }
-            },
-        });
-    });
-</script>
-@endpush
+
+        {{-- Last field --}}
+        <div class="input-group mb-3">
+            <input type="text" name="last_name" class="form-control {{ $errors->has('last_name') ? 'is-invalid' : '' }}"
+                   value="{{ old('last_name') }}" placeholder="Apelido" autofocus>
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
+            @if($errors->has('last_name'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('last_name') }}</strong>
+                </div>
+            @endif
+        </div>
+
+        {{-- Email field --}}
+        <div class="input-group mb-3">
+            <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
+            @if($errors->has('email'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </div>
+            @endif
+        </div>
+
+        {{-- Password field --}}
+        <div class="input-group mb-3">
+            <input type="password" name="password"
+                   class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                   placeholder="{{ __('adminlte::adminlte.password') }}">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
+            @if($errors->has('password'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </div>
+            @endif
+        </div>
+
+        {{-- Confirm password field --}}
+        <div class="input-group mb-3">
+            <input type="password" name="password_confirmation"
+                   class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}"
+                   placeholder="Repete a password">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
+            @if($errors->has('password_confirmation'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('password_confirmation') }}</strong>
+                </div>
+            @endif
+        </div>
+
+        {{-- Register button --}}
+        <button type="submit" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
+            <span class="fas fa-user-plus"></span>
+            {{ __('adminlte::adminlte.register') }}
+        </button>
+
+
+    </form>
+@stop
+
+@section('auth_footer')
+    <p class="my-0">
+        <a href="{{ route('trainee.login') }}">
+            Login como empresa
+        </a>
+    </p>
+    <p class="my-0">
+        <a href="{{ route('instructor.login') }}">
+            Já me registei. Fazer login
+        </a>
+    </p>
+@stop

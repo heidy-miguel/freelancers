@@ -15,8 +15,8 @@
         <h3 class="widget-user-username">{{ Auth::guard('trainee')->user()->name }}</h3> 
         <h5 class="widget-user-desc">{{ Auth::guard('trainee')->user()->description }}</h5>
       </div>
-      <div class="widget-user-image"> 
-        <img class="img-circle elevation-2" src="{{ asset('storage/img/trainee/' . Auth::guard('trainee')->user()->picture ) }}" style="width: 100px; height: 100px" alt="{{ ucwords(Auth::guard('trainee')->user()->name) }}">
+      <div class="widget-user-image">  
+        <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/img/trainees/' . Auth::guard('trainee')->user()->picture ) }}" style="width: 100px; height: 100px" alt="{{ ucwords(Auth::guard('trainee')->user()->name) }}">
       </div>
       <div class="card-footer">
         <div class="row">

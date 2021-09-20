@@ -49,9 +49,9 @@ class AdminController extends Controller
         $job = Job::find($request->input('job_id'));
         if($job){
             $job->instructor_id = $request->input('instructor_id'); 
-            $updated = $job->update();
+            $job->update();
 
-            return redirect()->route('show-job', [$job->id]);
+            return view('dashboard.admin.job.show')->with('job', $job);
 
         }
     }

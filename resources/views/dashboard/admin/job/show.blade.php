@@ -87,7 +87,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label for="rate" class="col-sm-2 col-form-label">Rate</label>
+                <label for="rate" class="col-sm-2 col-form-label">Pagamento</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" id="rate" value="{{ $job->rate }}" readonly>
                 </div>
@@ -117,8 +117,7 @@
               <div class="form-group row">
                 <label for="instructor_id" class="col-sm-2 col-form-label">Instrutor</label>
                 <select class="select2 col-sm-10 form-control" name="instructor_id"id="instructor_id">
-                  <option value="wwwww"></option>
-                  @foreach($job->applicants  as $candidate)
+                  <!--@foreach($job->applicants  as $candidate)
                     @if(in_array($candidate->id, $job->applicants->pluck('id')->toArray()))
                       <option value="{{ $candidate->id }}" selected>
                         {{ ucwords($candidate->name) }}
@@ -128,8 +127,15 @@
                         {{ ucwords($candidate->name) }}
                       </option>
                     @endif
-                  @endforeach
-                </select>
+                  @endforeach -->
+
+                  @if($job->instructor_id !== null))
+                  <option value="{{ $job->instructor->id }}" selected>{{ $job->instructor->name }}</option>
+                  @endif
+                  @foreach($instructors as $instructor)
+                  <option value="{{ $instructor->id }}">{{ $instructor->name }}</option>
+                  @endforeach 
+
               </div>
             <!-- /.card-body -->
             <div class="card-footer">

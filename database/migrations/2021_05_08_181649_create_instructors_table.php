@@ -18,7 +18,7 @@ class CreateInstructorsTable extends Migration
             $table->boolean('active')->default(true);
             $table->string('name')->nullable();
             $table->string('first_name');
-            $table->string('middle_name')->nullable();
+            $table->string('middle_name')->nullable(); 
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('profession')->nullable();

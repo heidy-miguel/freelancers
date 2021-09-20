@@ -86,7 +86,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label for="rate" class="col-sm-2 col-form-label">Rate</label>
+                <label for="rate" class="col-sm-2 col-form-label">Pagamento</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" id="rate" value="<?php echo e($job->rate); ?>" readonly>
                 </div>
@@ -118,8 +118,7 @@
               <div class="form-group row">
                 <label for="instructor_id" class="col-sm-2 col-form-label">Instrutor</label>
                 <select class="select2 col-sm-10 form-control" name="instructor_id"id="instructor_id">
-                  <option value="wwwww"></option>
-                  <?php $__currentLoopData = $job->applicants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $candidate): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <!--<?php $__currentLoopData = $job->applicants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $candidate): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php if(in_array($candidate->id, $job->applicants->pluck('id')->toArray())): ?>
                       <option value="<?php echo e($candidate->id); ?>" selected>
                         <?php echo e(ucwords($candidate->name)); ?>
@@ -131,8 +130,15 @@
 
                       </option>
                     <?php endif; ?>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </select>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> -->
+
+                  <?php if($job->instructor_id !== null): ?>)
+                  <option value="<?php echo e($job->instructor->id); ?>" selected><?php echo e($job->instructor->name); ?></option>
+                  <?php endif; ?>
+                  <?php $__currentLoopData = $instructors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $instructor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <option value="<?php echo e($instructor->id); ?>"><?php echo e($instructor->name); ?></option>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+
               </div>
             <!-- /.card-body -->
             <div class="card-footer">

@@ -83,7 +83,7 @@ Route::prefix('instructor')->name('instructor.')->group(function(){
             Route::post('/add-employment',[InstructorController::class,'addEmployment'])->name('add_employment');
             Route::post('/add-education',[InstructorController::class,'addEducation'])->name('add_education');
             Route::post('/add-language',[InstructorController::class,'addLanguage'])->name('add_language');
-            Route::put('/update-personal-info', [InstructorController::class, 'update_personal_info'])->name('update_personal_info');
+            Route::post('/update-personal-info', [InstructorController::class, 'update_personal_info'])->name('update_personal_info');
        });
 
 });
