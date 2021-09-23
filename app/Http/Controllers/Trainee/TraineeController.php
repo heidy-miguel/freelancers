@@ -28,7 +28,7 @@ class TraineeController extends Controller
           $save = $treinee->save();
 
           if( $save ){
-              return redirect()->back()->with('success','P teu registo foi afectuado com sucesso');
+              return redirect()->route('trainee.login');
           }else{
               return redirect()->back()->with('fail','Something went Wrong, failed to register');
           }

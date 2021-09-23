@@ -31,7 +31,7 @@ class InstructorController extends Controller
           $save = $instructor->save();
 
           if( $save ){
-              return view('dashboard.instructor.home')->with('instructor',$save);
+              return redirect()->route('instructor.login');
           }else{
               return redirect()->back()->with('fail','Algo correu mal, registo não afectuado.');
           }
