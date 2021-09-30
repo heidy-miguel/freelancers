@@ -41,9 +41,7 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <!-- <li><a class="nav-link scrollto active" href="#hero">Home</a></li> -->
-<!--           <li><a class="nav-link scrollto" href="{{ route('instructor.explore') }}">Freelancers</a></li> -->
-<!--           <li><a class="nav-link scrollto" href="{{ route('job.index') }}">Oportunidades</a></li> -->
+
           <li><a class="nav-link scrollto" href="{{ route('welcome') }}#services">Serviços</a></li>
 <!--           <li><a class="nav-link scrollto " href="{{ route('welcome') }}#portfolio">Portfolio</a></li>
           <li><a class="nav-link scrollto" href="{{ route('welcome') }}#team">Team</a></li> -->
@@ -69,17 +67,13 @@
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-<!--       @auth('trainee')
-      <a href="{{ url('/instructor/register') }}" class="get-started-btn scrollto">PUBLICAR</a>
-      @endauth -->
-      @auth('instructor')
-      <a href="{{ url('/instructor/edit') }}" class="get-started-btn scrollto">PERFIL</a>
-      @endauth
-<!--       @guest('instructor') 
-      <a href="{{ url('/instructor/register') }}" class="get-started-btn scrollto">REGISTAR-SE</a> -->
-      @endguest
-      @guest('instructor') 
-      <a href="{{ url('/instructor/login') }}" class="get-started-btn">LOGIN</a>
+
+      @role('instructor')
+      <a href="{{ route('trainer.home') }}" class="get-started-btn scrollto">PERFIL</a>
+      @endrole
+
+      @guest('trainer') 
+      <a href="{{ route('trainer.login') }}" class="get-started-btn">LOGIN</a>
       @endguest
     </div>
   </header><!-- End Header -->

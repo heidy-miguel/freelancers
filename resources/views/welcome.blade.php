@@ -14,7 +14,7 @@ Freelancers Consulting
           <h1>Encontre um formador profissional de qualquer área</h1>
           <h2>Trabalhe com a maior rede de profissionais independente e faça as coisas acontecerem de maneira
           rápida e eficaz.</h2>
-          <a href=" {{ route('instructor.explore') }}" class="btn-get-started scrollto">Explorar Formadores</a>
+          <a href="#" class="btn-get-started scrollto">Explorar Formadores</a>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@ Freelancers Consulting
                 ou negócios a novos patamares. Encontre oportunidades para todas as fases de sua carreira
                 freelance. Controle quando, onde e como você trabalha e explore maneiras diferentes de ganhar mais.
               </p>
-              <a href="{{ route('instructor.register') }}" class="about-btn"><span>Quero ser freelancer</span> <i class="bx bx-chevron-right"></i></a>
+              <a href="{{ route('trainer.register') }}" class="about-btn"><span>Quero ser formador</span> <i class="bx bx-chevron-right"></i></a>
             </div>
           </div>
           <div class="col-xl-7 d-flex align-items-stretch">
@@ -88,7 +88,56 @@ Freelancers Consulting
         </div>
 
       </div>
-    </section><!-- End About Section -->
+    </section>
+    <!-- End About Section -->
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row no-gutters">
+          <div class="content col-xl-5 d-flex align-items-stretch">
+            <div class="content">
+              <h3>Deixe-nos ajudá-lo a encontrar a sua próxima grande oportunidade.</h3>
+              <p>
+                Encontre colaboradores com os quais você está animado para trabalhar e leve sua carreira
+                ou negócios a novos patamares. Encontre oportunidades para todas as fases de sua carreira
+                freelance. Controle quando, onde e como você trabalha e explore maneiras diferentes de ganhar mais.
+              </p>
+              <a href="{{ route('trainer.register') }}" class="about-btn"><span>Quero ser formador</span> <i class="bx bx-chevron-right"></i></a>
+            </div>
+          </div>
+          <div class="col-xl-7 d-flex align-items-stretch">
+            <div class="icon-boxes d-flex flex-column justify-content-center">
+              <div class="row">
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+                  <i class="bx bx-receipt"></i>
+                  <h4>Encontrar emprego do seu jeito</h4>
+                  <p>Descubra como o Freelancers Consulting pode facilitar os seus processos de procura de emprego!</p>
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+                  <i class="bx bx-cube-alt"></i>
+                  <h4>Mais destaque para o teu currículumn</h4>
+                  <p>Disponibilizamos vários tipos de destaques e diferentes níveis de personalização para que possa atrair os melhores ofertas!</p>
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
+                  <i class="bx bx-images"></i>
+                  <h4>Labore consequatur</h4>
+                  <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
+                  <i class="bx bx-shield"></i>
+                  <h4>Encontra oportunidades</h4>
+                  <p>Expedita veritatis consequuntur nihil tempore laudantium vitae denat pacta</p>
+                </div>
+              </div>
+            </div><!-- End .content-->
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- End About Section -->
 
     <!-- ======= Counts Section ======= -->
     <section id="counts" class="counts">

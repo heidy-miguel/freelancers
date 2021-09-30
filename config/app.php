@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Freelancers Consulting'),
+    'name' => env('APP_NAME', 'Sistema de Gestão de Processos'),
 
     /*
     |--------------------------------------------------------------------------
@@ -161,7 +161,9 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        App\View\Composers\AdminProvider::class,
+        // Other Service Providers
+        App\Providers\ViewServiceProvider::class,
+
 
         /*
          * Package Service Providers...
@@ -175,7 +177,17 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\JobServiceProvider::class,
+
+        /*
+        * Spatie Service Provider
+        */
+        Spatie\Permission\PermissionServiceProvider::class,
+
+        /*
+        * DomPDF
+        */
+        Barryvdh\Snappy\ServiceProvider::class,
+        App\View\Composers\DashboardProvider::class,
 
     ],
 
@@ -229,6 +241,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 
     ],
 

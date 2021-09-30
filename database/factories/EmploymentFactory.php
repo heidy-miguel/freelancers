@@ -22,15 +22,12 @@ class EmploymentFactory extends Factory
     public function definition()
     {
         return [
-            //
-            'company' => $this->faker->company(),
-            'city' => $this->faker->city(),
-            'country' => $this->faker->country(), 
             'title' => $this->faker->framework(),
             'start_date' => $this->faker->dateTimeBetween($startDate = '-7 years', $endDate = '-2 years'),
             'end_date' => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now'),
-            'instructor_id' => $this->faker->numberBetween($min = 1, $max = 23),
+            'trainer_id' => $this->faker->numberBetween($min = 1, $max = 25),
             'description' => $this->faker->text($maxNbChars = 200),
+        ];
         ];
     }
 }

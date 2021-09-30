@@ -17,18 +17,6 @@ return [
         'guard' => 'web',
         'passwords' => 'users',
     ],
-    'admin'=>[
-       'driver'=>'eloquent',
-       'model'=>App\Models\Admin::class,
-    ],
-    'instructor'=>[
-        'driver'=>'eloquent',
-        'model'=>App\Models\Instructor::class,
-     ],
-    'trainee'=>[
-        'driver'=>'eloquent',
-        'model'=>App\Models\Trainee::class,
-     ],
 
     /*
     |--------------------------------------------------------------------------
@@ -58,18 +46,16 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
-        'admin'=>[
-           'driver'=>'session',
-           'provider'=>'admins',
+
+        'institution' => [
+            'driver' => 'session',
+            'provider' => 'institutions',
         ],
-        'instructor'=>[
-            'driver'=>'session',
-            'provider'=>'instructors',
-         ],
-        'trainee'=>[
-            'driver'=>'session',
-            'provider'=>'trainees',
-         ],
+
+        'trainer' => [
+            'driver' => 'session',
+            'provider' => 'trainers',
+        ],
     ],
 
     /*
@@ -95,22 +81,15 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
-        'admins'=>[
-           'driver'=>'eloquent',
-           'model'=>App\Models\Admin::class,
+        'institutions' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Institution::class,
         ],
-        'instructors'=>[
-            'driver'=>'eloquent',
-            'model'=>App\Models\Instructor::class,
-         ],
-        'trainees'=>[
-            'driver'=>'eloquent',
-            'model'=>App\Models\Trainee::class,
-         ],
+
+        'trainers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Trainer::class,
+        ],
     ],
 
     /*
@@ -135,18 +114,7 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'admins'=>[
-            'driver'=>'eloquent',
-            'model'=>App\Models\Admin::class,
-        ],
-        'instructors'=>[
-            'driver'=>'eloquent',
-            'model'=>App\Models\Instructor::class,
-        ],
-        'trainees'=>[
-            'driver'=>'eloquent',
-            'model'=>App\Models\Trainee::class,
-        ]
+
     ],
 
     /*

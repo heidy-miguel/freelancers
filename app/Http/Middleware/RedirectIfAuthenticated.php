@@ -23,21 +23,18 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-
-                if($guard === 'admin'){
-                    return redirect()->route('instructor.edit');
+                if($guard === 'web'){
+                    return redirect()->route('users.dashboard');
                 }
-                if($guard === 'instructor'){
-                    return redirect()->route('instructor.edit');
+                if($guard === 'institution'){
+                    return redirect()->route('institution.home');
                 }
-                if($guard === 'trainee'){
-                    return redirect()->route('instructor.explore');
+                if($guard === 'trainer'){
+                    return redirect()->route('trainer.home');
                 }
-                return redirect()->route('instructor.edit');
                 // return redirect(RouteServiceProvider::HOME);
             }
         }
-
         return $next($request);
     }
 }

@@ -6,14 +6,16 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "barryvdh/laravel-snappy": "^0.4.8",
+        "fakerphp/faker": "^1.9.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "jeroennoten/laravel-adminlte": "^3.6",
+        "h4cc/wkhtmltopdf-amd64": "0.12.x",
+        "infyomlabs/laravel-ui-adminlte": "^3.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "fakerphp/faker": "^1.9.1",
-        "laravel/ui": "^3.2"
+        "spatie/laravel-permission": "^4.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

@@ -3,14 +3,12 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Instructor;
-use App\Models\Course;
-use App\Models\Skill;
-use App\Models\Education;
-use App\Models\Job;
-use App\Models\Trainee;
-use App\Models\Employment;
-use Illuminate\Support\Arr;
+use App\Models\User;
+use App\Models\Institution;
+use App\Models\Solicitation;
+use App\Models\Trainer;
+use App\Models\Category;
+use App\Models\Subcategory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,50 +19,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserSeeder::class);
-        $this->call(LanguageSeeder::class);
-        $this->call(SkillSeeder::class);
-        //$this->call(CourseCategorySeeder::class);
-        //$this->call(CourseSeeder::class);
-        $this->call(InstructorSeeder::class);
-        //$this->call(TraineeSeeder::class);
-
-        $skills = Skill::all();
-        $instructor = Instructor::all();
+        Trainer::factory()->count(25)->create(); 
+        Institution::factory()->count(35)->create(); 
         
-        Trainee::factory(44)->create();
-        Instructor::factory(23)->create();
-        Job::factory(85)->create();
-        Education::factory(50)->create();
-        Employment::factory(50)->create();
+        $this->call([
+            UserSeeder::class, 
+            PermissionRoleSeeder::class,
+            CategorySeeder::class, 
+        ]);
+
         
-        $educations = Education::all();
-        $employments = Employment::all();
+        Solicitation::factory()->count(85)->create(); 
+        Subcategory::factory()->count(25)->create(); 
 
-        \App\Models\Job::all()->each(function($job) use($instructor){
-            $job->applicants()->attach(
-                Arr::random(Instructor::all()->pluck('id')->toArray(), rand(1, 23))
-            );
-        });
-        \App\Models\Job::factory(55)->create();
+        $solicitations = Solicitation::all(); 
+        $categories = Category::all();
 
-        \App\Models\Job::all()->each(function($job) use($skills){
-            $job->skills()->attach($skills->random(rand(2, 6))->pluck('id')->toArray());
+        Solicitation::all()->each(function($solicitations) use($categories){
+            $cat = Category::find(rand(1,8));
+            $solicitations->categories()->attach($cat);
         });
-        \App\Models\Instructor::all()->each(function($instructor) use($skills){
-            $instructor->skills()->attach($skills->random(rand(2, 6))->pluck('id')->toArray());
-        });
-
-        \App\Models\Education::all()->each(function($educations) use($instructor){
-            $educations->instructor()->associate($instructor->toArray(), rand(1, 50));
-        });
-        \App\Models\Employment::all()->each(function($employments) use($instructor){
-            $employments->instructor()->associate($instructor->toArray(), rand(1, 50));
-        });
-        // \App\Models\Instructor::factory(23)->create()->each(function($instructor){
-        //     $courseId = rand(1, 24);
-        //     $instructor->courses()->attach($courseId);            
-        // });
-        // \App\Models\Training::factory(35)->create();
+ 
     }
 }

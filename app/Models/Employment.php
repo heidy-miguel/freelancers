@@ -8,8 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Employment extends Model
 {
     use HasFactory;
-
-    public function instructor(){
-        return $this->belongsTo('App\Models\Instructor');
-    }
 }
