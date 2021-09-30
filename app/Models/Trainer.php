@@ -11,6 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 class Trainer extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
+    protected $guard_name = 'trainer';
 
     public function getFullNameAttribute(){
         return "{$this->name} {$this->surname}";

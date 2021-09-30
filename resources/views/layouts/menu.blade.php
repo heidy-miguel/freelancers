@@ -1,5 +1,5 @@
 <!-- need to remove -->
-@hasrole('user')
+@hasrole('admin')
         <li class="nav-item menu-open">
           <a href="#" class="nav-link active">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -15,35 +15,18 @@
                 <p>Solicitações</p>
               </a>
             </li>
-          </ul>
-        </li>
-        <li class="nav-item menu-open">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>CÍVEL</p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="#" class="nav-link">
+            <li class="nav-item active">
+              <a href="{{ route('institution.index') }}" class="nav-link">
                 <i class="fas fa-list-ul"></i>
-                <p>Processos</p>
+                <p>Instituições</p>
               </a>
             </li>
-          </ul>
-        </li>
-        <li class="nav-item menu-open">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fa fa-users"></i>
-            <p>USUÁRIOS</p>
-            <i class="right fas fa-angle-left"></i>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="#" class="nav-link">
+<!--             <li class="nav-item active">
+              <a href="{{ route('trainer.index') }}" class="nav-link">
                 <i class="fas fa-list-ul"></i>
-                <p>Usuários</p>
+                <p>Formadores</p>
               </a>
-            </li>
+            </li> -->
           </ul>
         </li>
 @endhasrole

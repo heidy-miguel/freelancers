@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use App\Models\Trainer;
 use App\Models\Institution;
 
 class PermissionRoleSeeder extends Seeder
@@ -33,9 +34,9 @@ class PermissionRoleSeeder extends Seeder
         //     ['read process']
         // );
 
-        $admin_role = Role::create(['name' => 'super admin']);
-        $institution_role = Role::create(['name' => 'institution']);
-        $trainer_role = Role::create(['name' => 'trainer']);
+        $user_role = Role::create(['name' => 'admin']);
+        $institution_role = Role::create(['guard_name' => 'institution', 'name' => 'institution']);
+        $trainer_role = Role::create(['guard_name' => 'trainer', 'name' => 'trainer']);
 
 
         // create roles and assign created permissions
@@ -45,8 +46,6 @@ class PermissionRoleSeeder extends Seeder
         //     ['create user', 'unpublish articles']
         // );
 
-        $admin = User::where('email', 'admin@gmail.com')->first();
-        $admin->assignRole($admin_role);
 
         // clerk users
         // $users = User::whereBetween('id', [5, 8])->get();
@@ -62,12 +61,17 @@ class PermissionRoleSeeder extends Seeder
         //     $user->assignRole($criminal_role);
         // }
 
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->assignRole($user_role);
+        }
+
         $institutions = Institution::all();
         foreach ($institutions as $inst) {
             $inst->assignRole($institution_role);
         }
 
-        $trainers = Institution::all();
+        $trainers = Trainer::all();
         foreach ($trainers as $trainer) {
             $trainer->assignRole($trainer_role);
         }

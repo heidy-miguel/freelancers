@@ -42,7 +42,7 @@ Route::prefix('formador')->name('trainer.')->group(function(){
     });
 
     Route::group(['middleware' => ['web']], function(){
-          Route::view('/', [TrainerController::class, 'index'])->name('index');
+          Route::get('/', [TrainerController::class, 'index'])->name('index');
           Route::view('/dashboard','trainer.home')->name('home');
           Route::get('/show/{id}', [TrainerController::class, 'show'])->name('show'); 
           Route::view('/add-education', [TrainerController::class, 'add_education'])->name('add_education');
@@ -63,7 +63,7 @@ Route::prefix('instituicao')->name('institution.')->group(function(){
           Route::view('/register', 'institution.register')->name('register');
     });
 
-    Route::middleware(['auth:institution'])->group(function(){
+    Route::middleware(['auth:web'])->group(function(){
             Route::view('dashboard','institution.home')->name('home');
             Route::get('/', [InstitutionController::class, 'index'])->name('index'); 
             Route::get('/show/{id}', [InstitutionController::class, 'show'])->name('show'); 

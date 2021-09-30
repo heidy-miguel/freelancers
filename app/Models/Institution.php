@@ -12,6 +12,8 @@ class Institution extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
 
+    protected $guard_name = 'institution';
+
     public function requests(){
         return $this->hasMany('App\Models\Request');
     }

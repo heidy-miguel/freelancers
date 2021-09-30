@@ -49,6 +49,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $guard_name = 'web';
+
     public function scopeActive($query)
     {
         return $query->where('active', 1);
