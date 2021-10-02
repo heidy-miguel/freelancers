@@ -12,7 +12,5 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
-
-mix.copyDirectory('node_modules/admin-lte/plugins/select2', 'public/plugins/select2');
-mix.copyDirectory('node_modules/admin-lte/plugins/jquery', 'public/plugins/jquery');
+    .sass('resources/sass/app.scss', 'public/css')
+    .sourceMaps();

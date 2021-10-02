@@ -1,100 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name') }}</title>
+@extends('layouts.app', ['class' => 'bg-default'])
 
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+@section('content')
+    @include('layouts.headers.guest')
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-          crossorigin="anonymous"/>
-
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-</head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <b>Admin</b>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Login para iniciar uma nova sessão</p>
-
-            <form method="post" action="{{ url('/login') }}">
-                @csrf
-
-                <div class="input-group mb-3">
-                    <input type="email"
-                           name="email"
-                           value="{{ old('email') }}"
-                           placeholder="Email"
-                           class="form-control @error('email') is-invalid @enderror">
-                    <div class="input-group-append">
-                        <div class="input-group-text"><span class="fas fa-envelope"></span></div>
-                    </div>
-                    @error('email')
-                    <span class="error invalid-feedback">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="input-group mb-3">
-                    <input type="password"
-                           name="password"
-                           placeholder="Password"
-                           class="form-control @error('password') is-invalid @enderror">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
+    <div class="container mt--8 pb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7">
+                <div class="card bg-secondary shadow border-0">
+                    <div class="card-header bg-transparent pb-5">
+                        <div class="text-muted text-center mt-2 mb-3"><small>{{ __('Sign in with') }}</small></div>
+                        <div class="btn-wrapper text-center">
+                            <a href="#" class="btn btn-neutral btn-icon">
+                                <span class="btn-inner--icon"><img src="{{ asset('argon') }}/img/icons/common/github.svg"></span>
+                                <span class="btn-inner--text">{{ __('Github') }}</span>
+                            </a>
+                            <a href="#" class="btn btn-neutral btn-icon">
+                                <span class="btn-inner--icon"><img src="{{ asset('argon') }}/img/icons/common/google.svg"></span>
+                                <span class="btn-inner--text">{{ __('Google') }}</span>
+                            </a>
                         </div>
                     </div>
-                    @error('password')
-                    <span class="error invalid-feedback">{{ $message }}</span>
-                    @enderror
-
-                </div>
-
-                <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember">
-                            <label for="remember">Lembrar de mim</label>
+                    <div class="card-body px-lg-5 py-lg-5">
+                        <div class="text-center text-muted mb-4">
+                            <small>
+                                    Create new account OR Sign in with these credentials:
+                                    <br>
+                                    Username <strong>admin@argon.com</strong> Password: <strong>secret</strong>
+                            </small>
                         </div>
-                    </div>
+                        <form role="form" method="POST" action="{{ route('login') }}">
+                            @csrf
 
-                    <div class="col-4">
-                        <button type="submit" class="btn-sm btn-primary btn-block">Login</button>
+                            <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }} mb-3">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                    </div>
+                                    <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}" value="admin@argon.com" required autofocus>
+                                </div>
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                    </div>
+                                    <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Password') }}" type="password" value="secret" required>
+                                </div>
+                                @if ($errors->has('password'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="custom-control custom-control-alternative custom-checkbox">
+                                <input class="custom-control-input" name="remember" id="customCheckLogin" type="checkbox" {{ old('remember') ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="customCheckLogin">
+                                    <span class="text-muted">{{ __('Remember me') }}</span>
+                                </label>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary my-4">{{ __('Sign in') }}</button>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
-            </form>
-
-      <div class="social-auth-links text-center mb-3">
-        <p>- OR -</p>
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-      </div>
-      <!-- /.social-auth-links -->
-
-      <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
-      </p>
-      <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
-      </p>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        @if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}" class="text-light">
+                                <small>{{ __('Forgot password?') }}</small>
+                            </a>
+                        @endif
+                    </div>
+                    <div class="col-6 text-right">
+                        <a href="{{ route('register') }}" class="text-light">
+                            <small>{{ __('Create new account') }}</small>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.login-card-body -->
-  </div>
-</div>
-<!-- /.login-box -->
-
-<script src="{{ mix('js/app.js') }}" defer></script>
-</body>
-</html>
+@endsection

@@ -9,7 +9,13 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function solicitations(){
-        return $this->belongsToMany('App\Models\Solicitation', 'category_solicitation');
+    protected $fillable = ['name', 'description'];
+
+    public function subcategories(){
+        return $this->hasMany('App\Models\Subcategory');
+    }
+
+    public function applications(){
+        return $this->hasMany('App\Models\Application');
     }
 }

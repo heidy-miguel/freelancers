@@ -1,10 +1,4 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/plugins/jquery/jquery.js": "/plugins/jquery/jquery.js",
-    "/plugins/jquery/jquery.min.js": "/plugins/jquery/jquery.min.js",
-    "/plugins/jquery/jquery.min.map": "/plugins/jquery/jquery.min.map",
-    "/plugins/jquery/jquery.slim.js": "/plugins/jquery/jquery.slim.js",
-    "/plugins/jquery/jquery.slim.min.js": "/plugins/jquery/jquery.slim.min.js",
-    "/plugins/jquery/jquery.slim.min.map": "/plugins/jquery/jquery.slim.min.map"
+    "/css/app.css": "/css/app.css"
 }

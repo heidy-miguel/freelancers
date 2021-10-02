@@ -23,18 +23,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                if($guard === 'web'){
-                    return redirect()->route('users.dashboard');
-                }
-                if($guard === 'institution'){
-                    return redirect()->route('institution.home');
-                }
-                if($guard === 'trainer'){
-                    return redirect()->route('trainer.home');
-                }
-                // return redirect(RouteServiceProvider::HOME);
+                return redirect(RouteServiceProvider::HOME);
             }
         }
+
         return $next($request);
     }
 }

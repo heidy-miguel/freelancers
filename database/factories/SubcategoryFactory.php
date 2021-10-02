@@ -23,8 +23,6 @@ class SubcategoryFactory extends Factory
     {
         return [
             //
-            'name' => $this->faker->text($maxNbChars = 5),
-            'category_id' => $this->faker->numberBetween($min = 1, $max = 8),
         ];
     }
 }

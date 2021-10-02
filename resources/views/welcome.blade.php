@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.presento')
 
 @section('title')
 Freelancers Consulting
@@ -56,7 +56,7 @@ Freelancers Consulting
                 ou negócios a novos patamares. Encontre oportunidades para todas as fases de sua carreira
                 freelance. Controle quando, onde e como você trabalha e explore maneiras diferentes de ganhar mais.
               </p>
-              <a href="{{ route('trainer.register') }}" class="about-btn"><span>Quero ser formador</span> <i class="bx bx-chevron-right"></i></a>
+              <a href="{{ route('register') }}" class="about-btn"><span>Quero ser formador</span> <i class="bx bx-chevron-right"></i></a>
             </div>
           </div>
           <div class="col-xl-7 d-flex align-items-stretch">
@@ -104,7 +104,7 @@ Freelancers Consulting
                 ou negócios a novos patamares. Encontre oportunidades para todas as fases de sua carreira
                 freelance. Controle quando, onde e como você trabalha e explore maneiras diferentes de ganhar mais.
               </p>
-              <a href="{{ route('trainer.register') }}" class="about-btn"><span>Quero ser formador</span> <i class="bx bx-chevron-right"></i></a>
+              <a href="{{ route('register') }}" class="about-btn"><span>Quero ser formador</span> <i class="bx bx-chevron-right"></i></a>
             </div>
           </div>
           <div class="col-xl-7 d-flex align-items-stretch">

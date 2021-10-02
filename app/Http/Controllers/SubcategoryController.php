@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SubCategory;
+use App\Models\Subcategory;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class SubcategoryController extends Controller
@@ -14,7 +15,8 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        //
+        $subcategories = Subcategory::where('id', '>=', 1)->orderBy('created_at', 'desc')->paginate(5);
+        return view('subcategories.index')->with('subcategories', $subcategories);
     }
 
     /**
@@ -25,6 +27,8 @@ class SubcategoryController extends Controller
     public function create()
     {
         //
+        $catgories = Category::all();
+        return view('subcategories.create')->withCategories($catgories);
     }
 
     /**
@@ -36,15 +40,28 @@ class SubcategoryController extends Controller
     public function store(Request $request)
     {
         //
+        $sub = new Subcategory();
+        $sub->name = $request->input('name');
+        $sub->category_id = $request->input('category_id');
+        $sub->save();
+        $sub->users()->attach(auth()->user()->id);
+        error_log(auth()->user()->id);
+        error_log(auth()->user()->id);
+        error_log(auth()->user()->id);
+        error_log(auth()->user()->id);
+        return redirect()->route('subcategory.index');
+
+
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SubCategory  $subCategory
+     * @param  \App\Models\Subcategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function show(SubCategory $subCategory)
+    public function show(Subcategory $subcategory)
     {
         //
     }
@@ -52,10 +69,10 @@ class SubcategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SubCategory  $subCategory
+     * @param  \App\Models\Subcategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(SubCategory $subCategory)
+    public function edit(Subcategory $subcategory)
     {
         //
     }
@@ -64,10 +81,10 @@ class SubcategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SubCategory  $subCategory
+     * @param  \App\Models\Subcategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubCategory $subCategory)
+    public function update(Request $request, Subcategory $subcategory)
     {
         //
     }
@@ -75,10 +92,10 @@ class SubcategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SubCategory  $subCategory
+     * @param  \App\Models\Subcategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubCategory $subCategory)
+    public function destroy(Subcategory $subcategory)
     {
         //
     }

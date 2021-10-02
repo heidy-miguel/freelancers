@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class CategorySeeder extends Seeder
 {
@@ -14,7 +15,6 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        //
         $categories = array(
             'banca', 'seguros', 'contabilidade', 'finanças',
             'adminisração pública', 'informática', 'formação comportamental',
@@ -26,6 +26,5 @@ class CategorySeeder extends Seeder
                 'name' => $category
             ]);
         }
-
     }
 }

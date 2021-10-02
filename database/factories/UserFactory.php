@@ -22,15 +22,20 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        return [ 
+        return [
             'active' => $this->faker->boolean($chanceOfGettingTrue = 70),
             'name' => $this->faker->firstName(),
             'surname' => $this->faker->firstName(),
             'phone' => $this->faker->phoneNumber(),
+            'role' => $this->faker->randomElement($array = array('trainer', 'institution')),
+            'profession' => $this->faker->jobTitle(),
             'birth_date' => $this->faker->date($format = 'Y-m-d', $max = '-20 years'),
-            'bio' => $this->faker->text($maxNbChars = 400),
+            'description' => $this->faker->text($maxNbChars = 400),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'phone' => $this->faker->phoneNumber(),
+            'address' => $this->faker->address(),
+            'nif' => $this->faker->numberBetween($min = 5000000000, $max = 9999999999),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];

@@ -6,6 +6,11 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
+
+    protected $roleMiddleware = [
+        'role' => App\Http\Middleware\RoleMiddleware::class,
+    ];
+
     /**
      * The application's global HTTP middleware stack.
      *
@@ -40,6 +45,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],

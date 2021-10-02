@@ -9,7 +9,11 @@ class Subcategory extends Model
 {
     use HasFactory;
 
+    public function category(){
+        return $this->belongsTo('App\Models\Category');
+    }
+
     public function users(){
-        return $this->belongsToMany('App\Models\user', 'subcategory_trainer');
+      return $this->belongsToMany('App\Models\User', 'subcategory_user');
     }
 }

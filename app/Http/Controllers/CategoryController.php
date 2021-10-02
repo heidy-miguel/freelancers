@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -15,6 +16,8 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        $categories = Category::where('id', '>=', 1)->orderBy('created_at', 'desc')->paginate(10);
+        return view('categories.index')->with('categories', $categories);
     }
 
     /**
@@ -25,6 +28,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
+        return view('categories.create');
     }
 
     /**
@@ -33,9 +37,13 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $category = new Category();
+        $category->name = $request->input('name');
+        $category->description = $request->input('description');
+        $category->save();
+        return redirect()->route('category.index')->withStatus('Categoria criada com sucesso');
     }
 
     /**
@@ -55,9 +63,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id) 
     {
-        //
+        $category = Category::find($id);
+        return view('categories.edit')->with('category', $category);
     }
 
     /**
@@ -65,11 +74,17 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $category->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+        ]);
+
+        return back()->withStatus(__('Alterado com sucesso'));
     }
 
     /**
