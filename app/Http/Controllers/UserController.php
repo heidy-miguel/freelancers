@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
-    public __construct(){
-        $this->middleware(['admin']);
+    public function __construct(){
+        $this->middleware(['role']);
     }
     /**
      * Display a listing of the users

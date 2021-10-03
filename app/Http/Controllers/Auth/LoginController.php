@@ -41,16 +41,16 @@ class LoginController extends Controller
     }
 
     public function redirectPath(){
-        if(Auth::user()->role() == 'trainer' ){
+        if(Auth::user()->role == 'trainer' ){
             return '/profile';
         }
-        if(Auth::user()->role() == 'institution' ){
+        if(Auth::user()->role == 'institution' ){
             return '/profile';
         }
-        if(Auth::user()->role() == 'admin'){
+        if(Auth::user()->role == 'admin'){
             return '/dashboad';
         }
-        if(Auth::user()->role() == 'manager'){
+        if(Auth::user()->role == 'manager'){
             return '/dashboad';
         }
     }

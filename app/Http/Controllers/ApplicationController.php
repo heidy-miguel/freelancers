@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Http\Requests\ApplicationRequest;
-use App\Models\Category;
+use App\Models\Category; 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 
 class ApplicationController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware(['role']);
+    }
 
 
     /**
