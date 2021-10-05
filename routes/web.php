@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,9 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
+    Route::get('user/trainers', [UserController::class, 'trainers'])->name('user.trainers');
+    Route::get('user/institutions', [UserController::class, 'institutions'])->name('user.institutions');
+    Route::get('user/managers', [UserController::class, 'managers'])->name('user.managers');
     Route::resource('category', 'App\Http\Controllers\CategoryController', ['except' => ['show']]);
     Route::resource('application', 'App\Http\Controllers\ApplicationController', ['except' => ['show']]);
     Route::resource('subcategory', 'App\Http\Controllers\SubcategoryController', ['except' => ['show']]);

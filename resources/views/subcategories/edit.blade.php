@@ -12,6 +12,7 @@
                     </div>
                     <div class="card-body">
                         <form method="post" action="{{ route('subcategory.update', [$subcategory->id]) }}" autocomplete="off">
+                            <input type="hidden" name="id" value="{{ $subcategory->id }}">
                             @csrf
                             @method('put')
                             <h6 class="heading-small text-muted mb-4">{{ __('Informação da categoria') }}</h6>
@@ -26,11 +27,22 @@
                             @endif
 
                             <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="name">{{ __('Categoria') }}</label>
-                                    <select name="name" id="name" class="form-control" required autofocus>
+                                <div class="form-group{{ $errors->has('category_id') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="category_id">{{ __('Categoria') }}</label>
+                                      <select name="category_id" class="form-control">
+                                          @foreach($categories as $category)
+                                            @if($category->id == $subcategory->category->id)
+                                              <option value="{{ $category->id }}" selected>
+                                                {{ ucwords($category->name) }}
+                                              </option>
+                                            @else
+                                              <option value="{{ $category->id }}">
+                                                {{ ucwords($category->name) }}
+                                              </option>
+                                            @endif
+                                          @endforeach
+                                      </select>
                                         
-                                    </select>
 
                                     @if ($errors->has('not_allow'))
                                         <span class="invalid-feedback" role="alert">
@@ -41,7 +53,7 @@
 
                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="name">{{ __('Nome') }}</label>
-                                    <input type="text" name="name" id="name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Nome') }}" value="{{ old('name') }}{{ $category->name }}" required autofocus>
+                                    <input type="text" name="name" id="name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Nome') }}" value="{{ old('name') }}{{ $subcategory->name }}" required autofocus>
 
                                     @if ($errors->has('not_allow'))
                                         <span class="invalid-feedback" role="alert">

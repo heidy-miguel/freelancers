@@ -13,7 +13,8 @@ class ApplicationController extends Controller
 {
 
     public function __construct(){
-        $this->middleware(['role']);
+        $this->middleware(['role:institution'])->only(['index']);
+        $this->middleware(['role:trainer']);
     }
 
 
@@ -52,9 +53,8 @@ class ApplicationController extends Controller
         $app->end_date = $request->input('end_date');
         $app->description = $request->input('description');
         $app->user_id = auth()->user()->id;
+        $app->category_id = $request->input('category_id');
         $app->save();
-        $category_ids = $request->input('categories');
-        $app->category()->attach($category_ids);
         return redirect()->route('application.index');
     }
 
@@ -82,7 +82,6 @@ class ApplicationController extends Controller
 
         return view('applications.edit')->with([
             'application' => $app, 
-            'categories' => Category::all(),
             'trainers' => User::all(),
             'managers' => User::manager(),
         ]);
@@ -98,21 +97,34 @@ class ApplicationController extends Controller
     public function update(Request $request, $id)
     {
         $app = Application::find($id);
-        if(auth()->user()->role('institution')){
+        error_log('REQUEST HERE');
+        if($request->input('user_role') == 'institution'){
+            error_log('INSTITUICAO');
             $app->update([
                 'title' => $request->input('title'),
                 'start_date' => $request->input('start_date'),
                 'end_date' => $request->input('end_date'),
                 'end_date' => $request->input('end_date'),
+                'description' => $request->input('description'),
                 'category_id' => $request->input('category_id'),
             ]);
             return back()->withStatus('Solicitação salva com sucesso');
-        } else {
+        } 
+
+        if($request->input('user_role') == 'admin') {
+            error_log('ADMIN');
             $app->update([
-                'manager_id' => $request->input('manager_id'),
-                'trainer_id' => $request->input('trainer_id'),
+                'manager_id' => $request->input('manager_id')
             ]);
-            return redirect()->route('applications.index')->withStatus('Solicitação salva com sucesso');
+            return redirect()->route('application.index')->withStatus('Solicitação salva com sucesso');
+        }
+
+        if($request->input('user_role') == 'manager') {
+            error_log('MANAGER');
+            $app->update([
+                'trainer_id' => $request->input('trainer_id')
+            ]);
+            return redirect()->route('application.index')->withStatus('Solicitação salva com sucesso');
         }
     }
 

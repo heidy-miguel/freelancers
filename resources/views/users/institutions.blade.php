@@ -17,7 +17,7 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h3 class="mb-0">Usuários</h3>
+                            <h3 class="mb-0">Formadores</h3>
                         </div>
                     </div>
                 </div>
@@ -30,22 +30,20 @@
                             <th scope="col">Nome</th>
                             <th scope="col">E-mail</th>
                             <th scope="col">Telefone</th>
+                            <th scope="col">NIF</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Data de Registo</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($users as $user)
+                            @foreach($institutions as $user)
                             <tr>
                                 <td>
-                                    @if($user->hasRole('institution'))
                                     {{ ucwords($user->name) }}
-                                    @else
-                                    {{ ucwords($user->full_name) }}
-                                    @endif
                                 </td>
                                 <td>{{ ucwords($user->email) }}</td>
                                 <td>{{ ucwords($user->phone) }}</td>
+                                <td>{{ ucwords($user->nif) }}</td>
                                 <td>
                                   <span class="badge badge-dot mr-4">
                                     @if($user->active)
@@ -63,7 +61,7 @@
                         </tbody>
                     </table>
                 </div>
-                    {{ $users->links() }}
+                    {{ $institutions->links() }}
                 <div class="card-footer py-4">
                     <nav class="d-flex justify-content-end" aria-label="...">
                         

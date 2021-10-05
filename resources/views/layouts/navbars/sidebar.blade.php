@@ -77,81 +77,65 @@
                 </div>
             </form>
             <!-- Navigation -->
-            <ul class="navbar-nav">
-                @role('admin|manager')
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
-                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
-                    </a>
-                </li>
-                @endrole
-                <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="fab fa-laravel" style="color: #f4645f;"></i>
-                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Gestão de Perfil') }}</span>
-                    </a>
-
-                    <div class="collapse show" id="navbar-examples">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.edit') }}">
-                                    {{ __('Meu Perfil') }}
-                                </a>
-                            </li>
-                            @role('admin')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.index') }}">
-                                    {{ __('User Management') }}
-                                </a>
-                            </li>
-                            @endrole
-                        </ul>
-                    </div>
-                </li>
-
-<!--                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('icons') }}">
-                        <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('map') }}">
-                        <i class="ni ni-pin-3 text-orange"></i> {{ __('Maps') }}
-                    </a>
-                </li>
- -->
-                @role('admin|manager')
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('application.index') }}">
-                        <i class="ni ni-circle-08 text-pink"></i> {{ __('Solicitações') }}
-                    </a>
-                </li>
-                @endrole
-                <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="fab fa-laravel" style="color: #f4645f;"></i>
-                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Categoria') }}</span>
-                    </a>
-
-                    <div class="collapse show" id="navbar-examples">
-                        <ul class="nav nav-sm flex-column">
-                            @role('admin|manager')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('category.index') }}">
-                                    {{ __('Categorias') }}
-                                </a>
-                            </li>
-                            @endrole
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('subcategory.index') }}">
-                                    {{ __('Especialidades') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-            </ul>
+      <div class="navbar-inner">
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+          <!-- Nav items -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('home') }}"> 
+                <i class="ni ni-tv-2 text-primary"></i>
+                <span class="nav-link-text">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('profile.edit') }}">
+                <i class="ni ni-single-02 text-yellow"></i>
+                <span class="nav-link-text">Perfil</span>
+              </a>
+            </li>
+            @if(auth()->user()->is_institution())
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('application.create') }}">
+                <i class="ni ni-single-02 text-yellow"></i>
+                <span class="nav-link-text">Nova Solicitação</span>
+              </a>
+            </li>
+            @endif
+            @if(auth()->user()->is_admin() || auth()->user()->is_manager())
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('user.trainers') }}">
+                <i class="ni ni-circle-08 text-pink"></i>
+                <span class="nav-link-text">Formadores</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('user.institutions') }}">
+                <i class="ni ni-pin-3 text-primary"></i>
+                <span class="nav-link-text">Instituições</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('application.index') }}">
+                <i class="ni ni-bullet-list-67 text-default"></i>
+                <span class="nav-link-text">Solicitações</span>
+              </a>
+            </li>
+            @endif
+            @if(auth()->user()->is_admin())
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('user.managers') }}">
+                <i class="ni ni-bullet-list-67 text-default"></i>
+                <span class="nav-link-text">Gestores</span>
+              </a>
+            </li>
+            @endif
+          </ul>
+          <!-- Divider -->
+          <hr class="my-3">
+          <!-- Heading -->
+        </div>
+      </div>
             <!-- Divider -->
             <hr class="my-3">
             <!-- Heading -->

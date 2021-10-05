@@ -35,6 +35,11 @@ class DashboardProvider extends ServiceProvider
             $view->with(['applications' => $applications]); 
         });
 
+        View::composer(['applications.create', 'applications.edit'], function($view){
+            $categories = Category::all();
+            $view->with(['categories' => $categories]); 
+        });
+
         View::composer('layouts.headers.cards', function($view){
             $trainers = User::latest('created_at')->where('role', '=', 'trainer')->orderBy('created_at', 'desc')->take(8)->get();
             $institutions = User::latest('created_at')->where('role', '=', 'institution')->orderBy('created_at', 'desc')->take(8)->get();

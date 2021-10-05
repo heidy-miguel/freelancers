@@ -21,13 +21,13 @@ class DatabaseSeeder extends Seeder
             PermissionRoleSeeder::class,
         ]);  
 
-        User::factory()->count(40)->create();
-        Application::factory()->count(70)->create();
+        // User::factory()->count(40)->create();
+        // Application::factory()->count(70)->create();
 
-        $app = Application::all();
-        Application::all()->each(function($app){
-            $cat = Category::find(rand(1, 8));
-            $app->category()->associate($cat);
-        });
+        // $app = Application::all();
+        // Application::all()->each(function($app){
+        //     $cat = Category::find(rand(1, 8));
+        //     $app->category()->associate($cat);
+        // });
     }
 }

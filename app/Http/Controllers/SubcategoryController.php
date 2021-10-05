@@ -45,10 +45,6 @@ class SubcategoryController extends Controller
         $sub->category_id = $request->input('category_id');
         $sub->save();
         $sub->users()->attach(auth()->user()->id);
-        error_log(auth()->user()->id);
-        error_log(auth()->user()->id);
-        error_log(auth()->user()->id);
-        error_log(auth()->user()->id);
         return redirect()->route('subcategory.index');
 
 
@@ -72,9 +68,14 @@ class SubcategoryController extends Controller
      * @param  \App\Models\Subcategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Subcategory $subcategory)
+    public function edit($id)
     {
         //
+        $subcategory = Subcategory::find($id);
+        return view('subcategories.edit')->with([
+            'subcategory' => $subcategory,
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -86,7 +87,15 @@ class SubcategoryController extends Controller
      */
     public function update(Request $request, Subcategory $subcategory)
     {
-        //
+        $subcategory = Category::find($request->input('id'));
+        if($subcategory){
+
+            $subcategory->name = $request->input('name');
+            $subcategory->save();
+
+        return back()->withStatus('Especialidade actualizada com sucesso');
+        }
+
     }
 
     /**

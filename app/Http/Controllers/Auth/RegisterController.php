@@ -65,12 +65,35 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $user = false;
+        if($data['role'] == 'trainer'){
 
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'role' => $data['role'],
-            'password' => Hash::make($data['password']),
-        ]);
+            $user = User::create([
+                'name' => $data['name'],
+                'surname' => $data['surname'],
+                'phone' => $data['phone'],
+                'email' => $data['email'],
+                'role' => $data['role'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
+
+        if($data['role'] == 'institution'){
+
+            $user = User::create([
+                'name' => $data['name'],
+                'nif' => $data['nif'],
+                'phone' => $data['phone'],
+                'email' => $data['email'],
+                'role' => $data['role'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
+        
+
+
+        $new_user = User::where('email', $data['email'])->first();
+        $new_user->assignRole($data['role']);
+        return $user;
     }
 }

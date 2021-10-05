@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class ApplicationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class CategoryRequest extends FormRequest
     {
 
         //return auth()->check();
-        if(auth()->check() && auth()->user()->role == 'trainer'){
+        if(auth()->check() && auth()->user()->hasRole('institution')){
             return true;
         }
         else {
@@ -32,9 +32,10 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required|alpha'],
-            'start_date' => ['required|date|after:tomorrow'],
-            'end_date' => ['required|date|after:start_date'],
+            'name' => ['required, alpha'],
+            'start_date' => ['required', 'date', 'after:tomorrow'],
+            'end_date' => ['required', 'date', 'after:start_date'],
+            'category_id' => ['required'],
             'description' => ['required']
         ];
     }

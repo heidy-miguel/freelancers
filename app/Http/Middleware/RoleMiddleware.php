@@ -7,8 +7,8 @@ use Auth;
 
 class RoleMiddleware {
 
-    public function handle($request, Closure $next){
-        if(! $request->user()->is_admin() ){
+    public function handle($request, Closure $next, $role){
+        if($request->user()->hasRole($role) ){
            return redirect('profile'); 
         }
         return $next($request);

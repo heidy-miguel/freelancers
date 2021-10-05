@@ -2,6 +2,7 @@
     <div class="container-fluid">
         <div class="header-body">
             <!-- Card stats -->
+            @if(auth()->user()->is_admin() || auth()->user()->is_manager())
             <div class="row">
                 <div class="col-xl-3 col-lg-6">
                     <div class="card card-stats mb-4 mb-xl-0">
@@ -72,6 +73,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

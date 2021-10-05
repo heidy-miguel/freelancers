@@ -30,8 +30,9 @@
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">Dome</th>
+                                <th scope="col">Especialidade</th>
                                 <th scope="col">Estado</th>
+                                <th scope="col">categoria</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -39,6 +40,7 @@
                             @foreach($subcategories as $subcategory)
                             <tr>
                                 <td>{{ ucwords($subcategory->name) }}</td>
+                                <td>{{ ucwords($subcategory->category->name) }}</td>
                                 <td>
                                   <span class="badge badge-dot mr-4">
                                     @if($subcategory->active)

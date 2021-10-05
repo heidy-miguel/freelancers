@@ -30,19 +30,19 @@ class PermissionRoleSeeder extends Seeder
             $user->assignRole($admin_role);
         }
 
-        $users = User::where('role', '=', 'manager');
-        foreach ($users as $user) {
-            $user->assignRole($manager_role);
-        }
+        // $users = User::where('role', '=', 'manager');
+        // foreach ($users as $user) {
+        //     $user->assignRole($manager_role);
+        // }
 
-        $users = User::where('role', '=', 'trainer');
-        foreach ($users as $user) {
-            $user->assignRole($trainer_role);
-        }
+        // $users = User::where('role', '=', 'trainer');
+        // foreach ($users as $user) {
+        //     $user->assignRole($trainer_role);
+        // }
 
-        $users = User::where('role', '=', 'institution');
-        foreach ($users as $user) {
-            $user->assignRole($institution_role);
-        }
+        // $users = User::where('role', '=', 'institution');
+        // foreach ($users as $user) {
+        //     $user->assignRole($institution_role);
+        // }
     }
 }

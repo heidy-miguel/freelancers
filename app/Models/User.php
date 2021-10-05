@@ -26,6 +26,7 @@ class User extends Authenticatable
         'nif',
         'phone', 
         'address',
+        'role',
     ];
 
     /**
@@ -55,6 +56,34 @@ class User extends Authenticatable
         return false;
     }
 
+    public function is_institution(){
+      $role = $this->role;
+      if($role == 'institution'){
+        return true;
+      }
+      return false;
+    }
+
+    public function is_manager(){
+      $role = $this->role;
+      if($role == 'manager'){
+        return true;
+      }
+      return false;
+    }
+
+    public function is_trainer(){
+      $role = $this->role;
+      if($role == 'trainer'){
+        return true;
+      }
+      return false;
+    }
+
+    public function total_apps(){
+      return $this->applications()->count();
+    }
+
     public function getFullNameAttribute(){
         return $this->name . ' ' . $this->surname;
   }
@@ -80,10 +109,15 @@ class User extends Authenticatable
     }
 
     public function applications(){
-        return $this->hasMany('App\Models\Application');
+        return $this->hasMany('App\Models\Application'); 
     }
 
     public function subcategories(){
       return $this->belongsToMany('App\Models\Subcategory', 'subcategory_user');
     }
+
+    public function managed_by_me(){
+      return $this->hasMany('App\Models\Application', 'manager_id');
+    }
 }
+ 

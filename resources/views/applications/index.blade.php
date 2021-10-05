@@ -42,7 +42,19 @@
                                 <td>{{ ucwords($app->category->name) }}</td>
                                 <td>{{ date('d-M-Y', strtotime($app->start_date)) }}</td>
                                 <td>{{ date('d-M-Y', strtotime($app->end_date)) }}</td>
-                                <td>{{ ucwords($app->manager->name) }}</td>
+                                <td>
+                                    @if(isset($app->manager->name))
+                                    {{ ucwords($app->manager->name) }}
+                                    @else
+                                      <div class="d-flex align-items-center">
+                                        <div>
+                                          <div class="progress">
+                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    @endif
+                                </td>
                                 <td>{{ ucwords($app->user->name) }}</td>
                                 
                                 <td class="text-right">

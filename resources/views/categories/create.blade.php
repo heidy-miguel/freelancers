@@ -7,13 +7,13 @@
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
-                            <h3 class="mb-0">{{ __('Nova Categoria') }}</h3>
+                            <h3 class="mb-0">{{ __('Nova Especialidade') }}</h3>
                         </div>
                     </div>
                     <div class="card-body">
                         <form method="post" action="{{ route('category.store') }}" autocomplete="off">
                             @csrf
-                            <h6 class="heading-small text-muted mb-4">{{ __('Informação da categoria') }}</h6>
+                            <h6 class="heading-small text-muted mb-4">{{ __('Informação da especialidade') }}</h6>
                             
                             @if (session('status'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
