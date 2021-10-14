@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\Welcome;
 
 class RegisterController extends Controller
 {
@@ -94,6 +97,7 @@ class RegisterController extends Controller
 
         $new_user = User::where('email', $data['email'])->first();
         $new_user->assignRole($data['role']);
+        Mail::to($new_user->email)->send(new Welcome($new_user));
         return $user;
     }
 }

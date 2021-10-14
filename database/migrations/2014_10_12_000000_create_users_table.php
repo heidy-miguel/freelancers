@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->string('nif')->nullable();
             $table->string('address')->nullable();
             $table->string('profession')->nullable();
+            $table->string('cap')->nullable();
+            $table->string('cv')->nullable();
             $table->date('birth_date')->nullable();
             $table->text('description')->nullable();
             $table->timestamp('email_verified_at')->nullable();

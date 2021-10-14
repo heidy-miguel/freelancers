@@ -1,7 +1,12 @@
-/*.bg-default {
-    background-color: #f7f7f7 !important;
+.bg-default {
+    background-color: #172b4d !important;
 }
 
 .bg-gradient-primary {
-    background: linear-gradient(87deg, #f7f7f7 0, #f7f7f7 100%) !important;
-}*/
+    background: linear-gradient(87deg, #172b4d 0, #172b4d 100%) !important;
+}
+
+
+.bg-gradient-default {
+    background: linear-gradient(87deg, #172b4d 0, #461f23 100%) !important;
+}

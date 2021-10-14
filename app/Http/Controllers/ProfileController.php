@@ -30,7 +30,40 @@ class ProfileController extends Controller
             return back()->withErrors(['not_allow_profile' => __('You are not allowed to change data for a default user.')]);
         }
 
-        auth()->user()->update($request->all());
+        //auth()->user()->update($request->all());
+
+        if(auth()->user()->is_institution()){
+            $user = auth()->user();
+            $user->name = $request->input('name');
+            $user->iban = $request->input('iban');
+            $user->phone = $request->input('phone');
+            $user->address = $request->input('address');
+            $user->email = $request->input('email');
+
+            $user->update();
+        }
+
+        if(auth()->user()->is_trainer()){
+            $user = auth()->user();
+            $user->name = $request->input('name');
+            $user->surname = $request->input('surname');
+            $user->profession = $request->input('profession');
+            $user->phone = $request->input('phone');
+            $user->address = $request->input('address');
+            $user->email = $request->input('email');
+            
+            if($request->hasFile('cv')){
+              $path = $request->file('cv')->store('resume', 'public');
+              $user->cv = $path;
+            }
+
+            if($request->hasFile('cap')){
+              $path = $request->file('cap')->store('cap', 'public');
+              $user->cap = $path;
+            }
+
+            $user->update();
+        }
 
         return back()->withStatus(__('Perfil actualizado com sucesso.'));
     }

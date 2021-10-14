@@ -32,16 +32,21 @@
                                 <div class="card-profile-stats d-flex justify-content-center mt-md-5">
                                     <div>
                                         <span class="heading">{{ auth()->user()->total_apps() }}</span>
-                                        <span class="description">Trabalhos</span>
+                                        @if(auth()->user()->is_institution())
+                                        <span class="description">Solicitações Feitas</span>
+                                        @endif
+                                        @if(auth()->user()->is_manager())
+                                        <span class="description">Solicitações Atribuidas</span>
+                                        @endif
                                     </div>
-                                    <div>
+<!--                                     <div>
                                         <span class="heading">10</span>
                                         <span class="description">{{ __('Photos') }}</span>
                                     </div>
                                     <div>
                                         <span class="heading">89</span>
                                         <span class="description">{{ __('Comments') }}</span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -49,7 +54,7 @@
                             <h3>
                                 {{ ucwords(auth()->user()->name) }}  
                                 {{ ucwords(auth()->user()->surname) }} 
-                                <span class="font-weight-light">, 27</span>
+                                <!--<span class="font-weight-light">, 27</span>-->
                             </h3>
                             @if(isset(auth()->user()->address))
                             <div class="h5 font-weight-300">
@@ -63,6 +68,13 @@
                             @endif
 
                             <hr class="my-4" />
+                            <p>
+                                <a href="{{ asset('storage') }}/{{ auth()->user()->cv }}">Currículo</a>
+                            </p>
+                            <hr class="my-4" />
+                            <p>
+                                <a href="{{ asset('storage') }}/{{ auth()->user()->cap }}">CAP</a>
+                            </p>
                             <p>{{ auth()->user()->description }}</p>
                             <!-- <a href="#">{{ __('Show more') }}</a> -->
                         </div>
@@ -83,16 +95,13 @@
                         <li class="nav-item">
                             <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Minhas Solicitações</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-calendar-grid-58 mr-2"></i>Messages</a>
-                        </li>
                     </ul>
                 </div>
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                                        <form method="post" action="{{ route('profile.update') }}" autocomplete="off">
+                                        <form method="post" action="{{ route('profile.update') }}" autocomplete="off" enctype="multipart/form-data">
                                             @csrf
                                             @method('put')
 
@@ -120,6 +129,7 @@
                                                     @endif
                                                 </div>
 
+                                                @role('institution')
                                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                                     <label class="form-control-label" for="input-nif">{{ __('NIF') }}</label>
                                                     <input type="text" name="nif" id="input-nif" class="form-control form-control-alternative{{ $errors->has('nif') ? ' is-invalid' : '' }}" placeholder="{{ __('Número de Identificação FIscal') }}" value="{{ old('nif', auth()->user()->nif) }}" required>
@@ -130,6 +140,7 @@
                                                         </span>
                                                     @endif
                                                 </div>
+                                                @endrole
 
 
                                                 @role('trainer')
@@ -146,7 +157,7 @@
 
                                                 <div class="form-group{{ $errors->has('profession') ? ' has-danger' : '' }}">
                                                     <label class="form-control-label" for="input-profession">{{ __('Profissão') }}</label>
-                                                    <input type="text" name="input-profession" id="input-profession" class="form-control form-control-alternative{{ $errors->has('profession') ? ' is-invalid' : '' }}" placeholder="{{ __('Profissão') }}" value="{{ old('profession', auth()->user()->profession) }}" required autofocus>
+                                                    <input type="text" name="profession" id="input-profession" class="form-control form-control-alternative{{ $errors->has('profession') ? ' is-invalid' : '' }}" placeholder="{{ __('Profissão') }}" value="{{ old('profession', auth()->user()->profession) }}" required autofocus>
 
                                                     @if ($errors->has('profession'))
                                                         <span class="invalid-feedback" role="alert">
@@ -157,8 +168,8 @@
                                                 @endrole
 
                                                 <div class="form-group{{ $errors->has('phone') ? ' has-danger' : '' }}">
-                                                    <label class="form-control-label" for="input-phone">{{ __('phone') }}</label>
-                                                    <input type="text" name="input-phone" id="input-phone" class="form-control form-control-alternative{{ $errors->has('phone') ? ' is-invalid' : '' }}" placeholder="{{ __('Profissão') }}" value="{{ old('phone', auth()->user()->phone) }}" required autofocus>
+                                                    <label class="form-control-label" for="input-phone">{{ __('Telefone') }}</label>
+                                                    <input type="text" name="phone" id="input-phone" class="form-control form-control-alternative{{ $errors->has('phone') ? ' is-invalid' : '' }}" placeholder="{{ __('Telefone') }}" value="{{ old('phone', auth()->user()->phone) }}" required autofocus>
 
                                                     @if ($errors->has('phone'))
                                                         <span class="invalid-feedback" role="alert">
@@ -169,7 +180,7 @@
 
                                                 <div class="form-group{{ $errors->has('address') ? ' has-danger' : '' }}">
                                                     <label class="form-control-label" for="input-address">{{ __('Endereço') }}</label>
-                                                    <input type="text" name="input-address" id="input-address" class="form-control form-control-alternative{{ $errors->has('address') ? ' is-invalid' : '' }}" placeholder="{{ __('Endereço') }}" value="{{ old('address', auth()->user()->address) }}">
+                                                    <input type="text" name="address" id="input-address" class="form-control form-control-alternative{{ $errors->has('address') ? ' is-invalid' : '' }}" placeholder="{{ __('Endereço') }}" value="{{ old('address', auth()->user()->address) }}">
 
                                                     @if ($errors->has('phone'))
                                                         <span class="invalid-feedback" role="alert">
@@ -190,6 +201,30 @@
                                                         </span>
                                                     @endif
                                                 </div>
+                                                @if(auth()->user()->is_trainer())
+                                               <div class="form-group{{ $errors->has('cv') ? ' has-danger' : '' }}">
+                                                    <label class="form-control-label" for="input-email">{{ __('Curriculum Vitae') }}</label>
+                                                    <input type="file" name="cv" id="cv" class="form-control form-control-alternative{{ $errors->has('cv') ? ' is-invalid' : '' }}" placeholder="{{ __('Curriculum') }}">
+
+                                                    @if ($errors->has('cv'))
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $errors->first('cv') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+
+                                               <div class="form-group{{ $errors->has('cap') ? ' has-danger' : '' }}">
+                                                    <label class="form-control-label" for="cap">{{ __('Certificado de Formador') }}</label>
+                                                    <input type="file" name="cap" id="cap" class="form-control form-control-alternative{{ $errors->has('cap') ? ' is-invalid' : '' }}" placeholder="{{ __('Certificado de Formador') }}">
+
+                                                    @if ($errors->has('cap'))
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $errors->first('cap') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+
+                                                @endif
                                                 <div class="text-center">
                                                     <button type="submit" class="btn btn-success mt-4">Salvar</button>
                                                 </div>
@@ -200,7 +235,7 @@
                                             @csrf
                                             @method('put')
 
-                                            <h6 class="heading-small text-muted mb-4">{{ __('Password') }}</h6>
+                                            <h6 class="heading-small text-muted mb-4">{{ __('Palavra-passe') }}</h6>
 
                                             @if (session('password_status'))
                                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -213,8 +248,8 @@
 
                                             <div class="pl-lg-4">
                                                 <div class="form-group{{ $errors->has('old_password') ? ' has-danger' : '' }}">
-                                                    <label class="form-control-label" for="input-current-password">{{ __('Current Password') }}</label>
-                                                    <input type="password" name="old_password" id="input-current-password" class="form-control form-control-alternative{{ $errors->has('old_password') ? ' is-invalid' : '' }}" placeholder="{{ __('Current Password') }}" value="" required>
+                                                    <label class="form-control-label" for="input-current-password">{{ __('Palavra-passe Actual') }}</label>
+                                                    <input type="password" name="old_password" id="input-current-password" class="form-control form-control-alternative{{ $errors->has('old_password') ? ' is-invalid' : '' }}" placeholder="{{ __('Palavra-passe Actual') }}" value="" required>
                                                     
                                                     @if ($errors->has('old_password'))
                                                         <span class="invalid-feedback" role="alert">
@@ -223,8 +258,8 @@
                                                     @endif
                                                 </div>
                                                 <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-                                                    <label class="form-control-label" for="input-password">{{ __('New Password') }}</label>
-                                                    <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('New Password') }}" value="" required>
+                                                    <label class="form-control-label" for="input-password">{{ __('Nova Palavra-passe') }}</label>
+                                                    <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Nova Palavra-passe') }}" value="" required>
                                                     
                                                     @if ($errors->has('password'))
                                                         <span class="invalid-feedback" role="alert">
@@ -233,12 +268,12 @@
                                                     @endif
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="form-control-label" for="input-password-confirmation">{{ __('Confirm New Password') }}</label>
-                                                    <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Confirm New Password') }}" value="" required>
+                                                    <label class="form-control-label" for="input-password-confirmation">{{ __('Confirma a Nova Palavra-passe') }}</label>
+                                                    <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Confirm Nova Palavra-passe') }}" value="" required>
                                                 </div>
 
                                                 <div class="text-center">
-                                                    <button type="submit" class="btn btn-success mt-4">{{ __('Change password') }}</button>
+                                                    <button type="submit" class="btn btn-success mt-4">{{ __('Salvar') }}</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -310,9 +345,7 @@
               <br>
             </div>
                             </div>
-                            <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-                                <p class="description">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-                            </div>
+
                         </div>
                     </div>
                 </div>

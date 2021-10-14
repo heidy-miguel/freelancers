@@ -30,7 +30,7 @@
                             <div class="pl-lg-4">
                                 <div class="form-group{{ $errors->has('title') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="title">{{ __('Formação Pretendida') }}</label>
-                                    <input type="text" name="title" id="title" class="form-control form-control-alternative{{ $errors->has('title') ? ' is-invalid' : '' }}" placeholder="{{ __('Formação Pretendida') }}" value="{{ old('title') }}{{ $application->title }}" required>
+                                    <input type="text" name="title" id="title" class="form-control form-control-alternative{{ $errors->has('title') ? ' is-invalid' : '' }}" placeholder="{{ __('Formação Pretendida') }}" value="{{ old('title') }}{{ $application->title }}" required autofocus>
 
                                     @if ($errors->has('title'))
                                         <span class="invalid-feedback" role="alert">

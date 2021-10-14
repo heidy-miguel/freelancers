@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user/institutions', [UserController::class, 'institutions'])->name('user.institutions');
     Route::get('user/managers', [UserController::class, 'managers'])->name('user.managers');
     Route::resource('category', 'App\Http\Controllers\CategoryController', ['except' => ['show']]);
-    Route::resource('application', 'App\Http\Controllers\ApplicationController', ['except' => ['show']]);
+    Route::resource('application', 'App\Http\Controllers\ApplicationController');
     Route::resource('subcategory', 'App\Http\Controllers\SubcategoryController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
